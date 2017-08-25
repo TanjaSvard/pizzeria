@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Pizzeria_Massagotti.Models;
-using Pizzeria_Massagotti.Models.ManageViewModels;
-using Pizzeria_Massagotti.Services;
+using PizzeriaMassagotti.Models;
+using PizzeriaMassagotti.Models.ManageViewModels;
+using PizzeriaMassagotti.Services;
 
-namespace Pizzeria_Massagotti.Controllers
+namespace PizzeriaMassagotti.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
@@ -495,7 +495,7 @@ namespace Pizzeria_Massagotti.Controllers
         {
             return string.Format(
                 AuthenicatorUriFormat,
-                _urlEncoder.Encode("Pizzeria_Massagotti"),
+                _urlEncoder.Encode("PizzeriaMassagotti"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

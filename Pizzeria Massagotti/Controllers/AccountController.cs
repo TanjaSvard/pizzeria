@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Pizzeria_Massagotti.Models;
-using Pizzeria_Massagotti.Models.AccountViewModels;
-using Pizzeria_Massagotti.Services;
+using PizzeriaMassagotti.Models;
+using PizzeriaMassagotti.Models.AccountViewModels;
+using PizzeriaMassagotti.Services;
 
-namespace Pizzeria_Massagotti.Controllers
+namespace PizzeriaMassagotti.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]

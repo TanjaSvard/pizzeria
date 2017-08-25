@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Pizzeria_Massagotti.Services;
+using PizzeriaMassagotti.Services;
 
-namespace Pizzeria_Massagotti.Services
+namespace PizzeriaMassagotti.Services
 {
     public static class EmailSenderExtensions
     {

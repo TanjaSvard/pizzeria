@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pizzeria_Massagotti.Models.AccountViewModels
+namespace PizzeriaMassagotti.Models.AccountViewModels
 {
     public class LoginWithRecoveryCodeViewModel
     {

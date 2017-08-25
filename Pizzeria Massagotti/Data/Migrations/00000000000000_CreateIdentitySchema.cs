@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Pizzeria_Massagotti.Data.Migrations
+namespace PizzeriaMassagotti.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

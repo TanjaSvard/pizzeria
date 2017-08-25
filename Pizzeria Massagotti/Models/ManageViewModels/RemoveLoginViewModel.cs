@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pizzeria_Massagotti.Models.ManageViewModels
+namespace PizzeriaMassagotti.Models.ManageViewModels
 {
     public class RemoveLoginViewModel
     {

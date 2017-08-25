@@ -1,4 +1,4 @@
-﻿@using Pizzeria_Massagotti.Views.Manage
+﻿@using PizzeriaMassagotti.Views.Manage
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

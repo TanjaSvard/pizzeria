@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Pizzeria_Massagotti.Controllers;
+using PizzeriaMassagotti.Controllers;
 
 namespace Microsoft.AspNetCore.Mvc
 {

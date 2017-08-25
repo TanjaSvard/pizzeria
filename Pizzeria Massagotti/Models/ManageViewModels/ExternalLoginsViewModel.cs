@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace Pizzeria_Massagotti.Models.ManageViewModels
+namespace PizzeriaMassagotti.Models.ManageViewModels
 {
     public class ExternalLoginsViewModel
     {

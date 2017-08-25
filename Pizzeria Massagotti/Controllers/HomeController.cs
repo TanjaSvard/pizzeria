@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Pizzeria_Massagotti.Models;
+using PizzeriaMassagotti.Models;
 
-namespace Pizzeria_Massagotti.Controllers
+namespace PizzeriaMassagotti.Controllers
 {
     public class HomeController : Controller
     {
