@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMassagotti.Models
 {
-    public class Cart
+    public class CartItem
     {
-        public int DishId { get; set; }
-        public int OrderId { get; set; }
-        public List<Dish> DishList { get; set; }
+        public int CartItemId { get; set; }
+        public Dish Dish { get; set; }
         public int Quantity { get; set; }
-
+        public string ShoppingCartId { get; set; }
     }
 }
