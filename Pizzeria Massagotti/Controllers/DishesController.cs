@@ -138,6 +138,7 @@ namespace PizzeriaMassagotti.Controllers
         }
 
         // GET: Dishes/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
