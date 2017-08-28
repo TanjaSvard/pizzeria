@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PizzeriaMassagotti.Data;
 using PizzeriaMassagotti.Models;
+using Microsoft.AspNetCore.Http;
+using PizzeriaMassagotti.Services;
 
 namespace PizzeriaMassagotti.Controllers
 {
     public class DishesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly DishService _dishService;
 
-        public DishesController(ApplicationDbContext context)
+        public DishesController(ApplicationDbContext context, DishService dishService)
         {
             _context = context;
+            _dishService = dishService;
+
         }
 
         // GET: Dishes
@@ -75,8 +80,19 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DishId,Name,Price")] Dish dish)
+        public async Task<IActionResult> Create([Bind("DishId,Name,Price")] Dish dish, IFormCollection collection)
         {
+            foreach (var item in _dishService.DishIngredientsAll())
+            {
+
+                foreach (var dishIngredient in _dishService.DishIngredientsForDishId(dish.DishId))
+                {
+                    dishIngredient.Enabled = collection.Keys.Any(m => m == $"ingredient-{dishIngredient.IngredientId}");
+                }
+            }
+           
+           
+
             if (ModelState.IsValid)
             {
                 _context.Add(dish);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PizzeriaMassagotti.Models;
 using PizzeriaMassagotti.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace PizzeriaMassagotti.Services
 {
@@ -19,5 +20,8 @@ namespace PizzeriaMassagotti.Services
         {
             return _context.Ingredients.ToList();
         }
+
+       
+
     }
 }
