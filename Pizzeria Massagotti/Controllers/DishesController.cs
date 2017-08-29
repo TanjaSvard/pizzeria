@@ -16,11 +16,14 @@ namespace PizzeriaMassagotti.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly DishService _dishService;
+        private readonly IngredientService _ingredientService;
 
-        public DishesController(ApplicationDbContext context, DishService dishService)
+
+        public DishesController(ApplicationDbContext context, DishService dishService, IngredientService ingredientService)
         {
             _context = context;
             _dishService = dishService;
+            _ingredientService = ingredientService;
 
         }
 
@@ -82,17 +85,15 @@ namespace PizzeriaMassagotti.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DishId,Name,Price")] Dish dish, IFormCollection collection)
         {
-            foreach (var item in _dishService.DishIngredientsAll())
-            {
-
+         
+           
                 foreach (var dishIngredient in _dishService.DishIngredientsForDishId(dish.DishId))
                 {
                     dishIngredient.Enabled = collection.Keys.Any(m => m == $"ingredient-{dishIngredient.IngredientId}");
+               
                 }
-            }
-           
-           
 
+            
             if (ModelState.IsValid)
             {
                 _context.Add(dish);

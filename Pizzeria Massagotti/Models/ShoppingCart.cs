@@ -9,7 +9,8 @@ namespace PizzeriaMassagotti.Models
     {
         public string ShoppingCartId { get; set; }
         public List<CartItem> CartItems { get; set; }  
-        public int OrderId { get; set; }        
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
         public int TotalPrice { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public string ApplicationUserId { get; set; }
