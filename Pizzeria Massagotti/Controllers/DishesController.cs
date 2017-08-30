@@ -61,8 +61,9 @@ namespace PizzeriaMassagotti.Controllers
             }
 
             var dish = await _context.Dishes
-                .Include(d => d.DishIngredients)
+                .Include(d => d.DishIngredients)          
                 .ThenInclude(di => di.Ingredient)
+                .Include(o => o.Category)
                 .SingleOrDefaultAsync(m => m.DishId == id);
             if (dish == null)
             {
@@ -125,7 +126,7 @@ namespace PizzeriaMassagotti.Controllers
                 return NotFound();
             }
 
-            var dish = await _context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
+            var dish = await _context.Dishes.Include(c => c.Category).SingleOrDefaultAsync(m => m.DishId == id);
             if (dish == null)
             {
                 return NotFound();
