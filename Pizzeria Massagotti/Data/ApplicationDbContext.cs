@@ -39,10 +39,15 @@ namespace PizzeriaMassagotti.Data
                 .HasForeignKey(di => di.IngredientId);
 
             //för en till många-relation räcker detta
+            builder.Entity<Dish>()
+               .HasOne(c => c.Category)
+               .WithMany(d => d.Dishes)
+               .HasForeignKey(c => c.CategoryId);
+
             builder.Entity<Order>()
                 .HasOne(o => o.ApplicationUser)
                 .WithMany(u => u.Orders)
-                .HasForeignKey(o => o.ApplicationUserId);
+                .HasForeignKey(o => o.ApplicationUserId);          
 
             builder.Entity<OrderDish>()
                 .HasKey(od => new { od.OrderId, od.DishId });
@@ -77,6 +82,7 @@ namespace PizzeriaMassagotti.Data
         public DbSet<DishIngredient> DishIngredients { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDish> OrderDishes { get; set; }
+        public DbSet<PizzeriaMassagotti.Models.Category> Category { get; set; }
 
     }
 }

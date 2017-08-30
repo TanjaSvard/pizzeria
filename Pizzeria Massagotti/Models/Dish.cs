@@ -12,5 +12,7 @@ namespace PizzeriaMassagotti.Models
         public int Price { get; set; }
         public List<DishIngredient> DishIngredients { get; set; }
         public List<OrderDish> OrderDishes { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace PizzeriaMassagotti.Controllers
         // GET: Dishes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Dishes.Include(d => d.DishIngredients).ThenInclude(d => d.Ingredient).ToListAsync());
+            return View(await _context.Dishes.Include(d => d.DishIngredients).ThenInclude(d => d.Ingredient).Include(c =>c.Category).ToListAsync());
         }
 
         // GET: Dishes/Details/5

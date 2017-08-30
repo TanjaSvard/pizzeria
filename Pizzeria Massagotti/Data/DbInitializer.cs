@@ -60,6 +60,7 @@ namespace PizzeriaMassagotti.Data
             //}
 
 
+
             if (!context.Dishes.Any())
             {
                 var cheese = new Ingredient { Name = "Cheese" };
@@ -73,11 +74,14 @@ namespace PizzeriaMassagotti.Data
                 var bacon = new Ingredient { Name = "Bacon" };
                 var banana = new Ingredient { Name = "Banana" };
 
+                var pizza = new Category { Name = "Pizza" };
+                var tropicalPizza = new Category { Name = "Tropical Pizza" };
+                var specialPizza = new Category { Name = "Special Pizza" };
 
-                var margherita = new Dish { Name = "Margherita", Price = 89 };
-                var fungi = new Dish { Name = "Fungi", Price = 91 };
-                var capricciosa = new Dish { Name = "Capricciosa", Price = 99 };
-                var hawaii = new Dish { Name = "Hawaii", Price = 99 };
+                var margherita = new Dish { Name = "Margherita", Price = 89, Category = pizza};
+                var fungi = new Dish { Name = "Fungi", Price = 91, Category = specialPizza };
+                var capricciosa = new Dish { Name = "Capricciosa", Price = 99, Category = pizza };
+                var hawaii = new Dish { Name = "Hawaii", Price = 99, Category = tropicalPizza };
 
                 var margheritaCheese = new DishIngredient { Dish = margherita, Ingredient = cheese };
                 var margheritaTomatoSouce = new DishIngredient { Dish = margherita, Ingredient = tomatoSauce };
@@ -106,6 +110,7 @@ namespace PizzeriaMassagotti.Data
                 margherita.DishIngredients = new List<DishIngredient>();
                 margherita.DishIngredients.Add(margheritaCheese);
                 margherita.DishIngredients.Add(margheritaTomatoSouce);
+                
 
                 fungi.DishIngredients = new List<DishIngredient>();
                 fungi.DishIngredients.Add(fungiMushroom);
@@ -120,6 +125,8 @@ namespace PizzeriaMassagotti.Data
                 hawaii.DishIngredients.Add(hawaiiMushroom);
                 hawaii.DishIngredients.Add(hawaiiBanana);
                 hawaii.DishIngredients.Add(hawaiiPineapple);
+
+               
 
                 var firstOrder = new Order();
                 firstOrder.OrderDateTime = DateTime.Now;
