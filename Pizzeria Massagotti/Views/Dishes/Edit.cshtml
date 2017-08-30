@@ -1,5 +1,11 @@
 ﻿@model PizzeriaMassagotti.Models.Dish
 @inject PizzeriaMassagotti.Services.IngredientService _ingredients
+@inject PizzeriaMassagotti.Services.DishService _dish
+
+@{
+    var allIngredients = _ingredients.All();
+
+}
 @{
     ViewData["Title"] = "Edit";
 }
@@ -26,16 +32,16 @@
                 <input asp-for="Category.Name" class="form-control" />
                 <span asp-validation-for="Category.Name" class="text-danger"></span>
             </div>
+
             <div class="form-group checkbox">
-                
-                    @foreach (var ingredient in _ingredients.All())
-                    {
-                                    
-                                <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" value="true" />
-                                <p>
-                                    @ingredient.Name
-                                </p>                         
-                        }                                  
+
+                @foreach (var ingredient in _ingredients.All())
+                {
+                    <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" @(_dish.DishHasIngredient(Model.DishId, ingredient.IngredientId) ?"checked":"") />
+                    <p>
+                        @ingredient.Name
+                    </p>
+                }
             </div>
 
             <div class="form-group">

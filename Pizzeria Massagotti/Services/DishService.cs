@@ -10,9 +10,12 @@ namespace PizzeriaMassagotti.Services
     public class DishService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IngredientService _ingredientService;
+
         public DishService(ApplicationDbContext context)
         {
             _context = context;
+            
         }
 
         public List<Dish> All()
@@ -28,6 +31,13 @@ namespace PizzeriaMassagotti.Services
         public List<DishIngredient> DishIngredientsAll()
         {
             return _context.DishIngredients.ToList();
+        }
+
+
+        public bool DishHasIngredient(int dishId, int ingredientId)
+        {
+            return _context.DishIngredients.Any(x => x.DishId == dishId && x.IngredientId == ingredientId);
+            
         }
     }
 }

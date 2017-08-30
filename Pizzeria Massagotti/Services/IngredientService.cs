@@ -18,14 +18,12 @@ namespace PizzeriaMassagotti.Services
 
         public List<Ingredient> All()
         {
-            var getIng = _context.Ingredients.ToList();
+            var getIngredients = _context.Ingredients.ToList();
 
-            return getIng.OrderBy(i => i.Name).ToList();
+            return getIngredients.OrderBy(i => i.Name).ToList();
 
             //return _context.Ingredients.OrderByDescending(i => i.Name)).ToList();
         }
-
-       
 
     }
 }

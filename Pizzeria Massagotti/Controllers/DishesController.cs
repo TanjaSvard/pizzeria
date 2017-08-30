@@ -30,7 +30,7 @@ namespace PizzeriaMassagotti.Controllers
         // GET: Dishes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Dishes.Include(d => d.DishIngredients).ThenInclude(d => d.Ingredient).Include(c =>c.Category).ToListAsync());
+            return View(await _context.Dishes.Include(d => d.DishIngredients).ThenInclude(d => d.Ingredient).Include(c => c.Category).ToListAsync());
         }
 
         // GET: Dishes/Details/5
@@ -61,7 +61,7 @@ namespace PizzeriaMassagotti.Controllers
             }
 
             var dish = await _context.Dishes
-                .Include(d => d.DishIngredients)          
+                .Include(d => d.DishIngredients)
                 .ThenInclude(di => di.Ingredient)
                 .Include(o => o.Category)
                 .SingleOrDefaultAsync(m => m.DishId == id);
@@ -84,30 +84,29 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DishId,Name,Price")] Dish dish, IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("DishId,Name,Price,Category")] Dish dish, IFormCollection collection)
         {
             List<Ingredient> testList = new List<Ingredient>();
-           
 
-            foreach (var item in collection.Keys.Where(m =>m.StartsWith("ingredient-")))
+
+            foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
             {
                 var ingStr = item.Remove(0, 11);
                 var ingId = Int32.Parse(ingStr);
                 var listIngredient = _ingredientService.All().FirstOrDefault(d => d.IngredientId == ingId);
-                
-               //var listIngredient = _context.Ingredients.FirstOrDefault(d => d.IngredientId == Int32.Parse(item.Remove(0, 12)));
+
+                //var listIngredient = _context.Ingredients.FirstOrDefault(d => d.IngredientId == Int32.Parse(item.Remove(0, 12)));
 
                 testList.Add(listIngredient);
 
-                DishIngredient di = new DishIngredient() {Dish =dish, Ingredient =listIngredient};
-                _context.DishIngredients.Add(di);                   
+                DishIngredient di = new DishIngredient() { Dish = dish, Ingredient = listIngredient };
+                _context.DishIngredients.Add(di);
             }
 
             //foreach (var dishIngredient in _dishService.DishIngredientsForDishId(dish.DishId))
             //{
             //    dishIngredient.Enabled = collection.Keys.Any(m => m == $"ingredient-{dishIngredient.IngredientId}");
             //}
-
 
             if (ModelState.IsValid)
             {
@@ -139,13 +138,15 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DishId,Name,Price")] Dish dish)
+        public async Task<IActionResult> Edit(int id, [Bind("DishId,Name,Price")] Dish dish, IFormCollection collection)
         {
             if (id != dish.DishId)
             {
                 return NotFound();
             }
 
+
+    
             if (ModelState.IsValid)
             {
                 try
@@ -170,7 +171,7 @@ namespace PizzeriaMassagotti.Controllers
         }
 
         // GET: Dishes/Delete/5
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
