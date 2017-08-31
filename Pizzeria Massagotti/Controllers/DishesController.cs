@@ -162,13 +162,7 @@ namespace PizzeriaMassagotti.Controllers
                 _context.DishIngredients.Add(di);
 
             }
-
-            //foreach (var dishIngredient in _dishService.DishIngredientsForDishId(dish.DishId))
-            //{
-            //    dishIngredient.Ingredient = collection.Keys.Any(m => m == $"ingredient-{dishIngredient.IngredientId}");
-            //}
-
-
+            
             if (ModelState.IsValid)
             {
                 try
