@@ -50,6 +50,11 @@ namespace PizzeriaMassagotti.Services
             }
             
         }
+
+        public int Total()
+        {
+            return 123;
+        }
             
 
     }

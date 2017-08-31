@@ -1,4 +1,10 @@
-﻿@{
+﻿@*@inject PizzeriaMassagotti.Services.CartService cartService
+
+<h2>Your order</h2>
+<h6>@cartService.Total()</h6>*@
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 

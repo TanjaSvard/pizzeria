@@ -9,7 +9,7 @@ namespace PizzeriaMassagotti.Models
     {
         public int CartItemId { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
-        public string ShoppingCartId { get; set; }
+        public int ShoppingCartId { get; set; }
         public Dish Dish { get; set; }
         public int DishId { get; set; }
         public int Quantity { get; set; }

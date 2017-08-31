@@ -42,6 +42,11 @@ namespace PizzeriaMassagotti
             services.AddTransient<IngredientService>();
             services.AddTransient<DishService>();
             services.AddTransient<CategoryService>();
+            services.AddTransient<CartService>();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromSeconds(600);
+                options.Cookie.HttpOnly = true;
+            });
 
 
             services.AddMvc();
@@ -64,6 +69,7 @@ namespace PizzeriaMassagotti
             app.UseStaticFiles();
 
             app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
