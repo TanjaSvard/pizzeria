@@ -41,6 +41,8 @@ namespace PizzeriaMassagotti
             services.AddTransient<RoleManager <IdentityRole>>();
             services.AddTransient<IngredientService>();
             services.AddTransient<DishService>();
+            services.AddTransient<CategoryService>();
+
 
             services.AddMvc();
         }

@@ -10,8 +10,7 @@ namespace PizzeriaMassagotti.Services
     public class DishService
     {
         private readonly ApplicationDbContext _context;
-        private readonly IngredientService _ingredientService;
-
+       
         public DishService(ApplicationDbContext context)
         {
             _context = context;
