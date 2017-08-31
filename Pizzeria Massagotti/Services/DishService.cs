@@ -38,5 +38,17 @@ namespace PizzeriaMassagotti.Services
             return _context.DishIngredients.Any(x => x.DishId == dishId && x.IngredientId == ingredientId);
             
         }
+
+        public void RemoveIngredients(int dishId)
+        {
+           var dishIngs = _context.DishIngredients.Where(x => x.DishId == dishId);
+
+            foreach (var ing in dishIngs)
+            {
+                _context.Remove(ing);
+            }
+
+            _context.SaveChanges();
+        }
     }
 }
