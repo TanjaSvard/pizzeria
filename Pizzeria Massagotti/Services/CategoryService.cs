@@ -19,7 +19,7 @@ namespace PizzeriaMassagotti.Services
 
         public List<Category> All()
         {
-            return _context.Category.ToList();
+            return _context.Categories.ToList();
         }       
 
     }

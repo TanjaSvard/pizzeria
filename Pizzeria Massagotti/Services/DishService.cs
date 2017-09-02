@@ -26,13 +26,7 @@ namespace PizzeriaMassagotti.Services
         {
             return _context.DishIngredients.Where(d => d.DishId == dishId).ToList();
         }
-
-        public List<DishIngredient> DishIngredientsAll()
-        {
-            return _context.DishIngredients.ToList();
-        }
-
-
+   
         public bool DishHasIngredient(int dishId, int ingredientId)
         {
             return _context.DishIngredients.Any(x => x.DishId == dishId && x.IngredientId == ingredientId);

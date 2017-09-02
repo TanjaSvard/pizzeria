@@ -82,9 +82,9 @@ namespace PizzeriaMassagotti.Data
         public DbSet<DishIngredient> DishIngredients { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDish> OrderDishes { get; set; }
-        public DbSet<Category> Category { get; set; }
-        public DbSet<CartItem> CartItem { get; set; }
-        public DbSet<CartItemIngredient> CartItemIngredient { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<CartItemIngredient> CartItemIngredients { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
 
     }

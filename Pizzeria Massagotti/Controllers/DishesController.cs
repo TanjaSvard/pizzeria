@@ -76,7 +76,7 @@ namespace PizzeriaMassagotti.Controllers
         // GET: Dishes/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
             return View();
         }
 
@@ -114,7 +114,7 @@ namespace PizzeriaMassagotti.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", dish.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", dish.CategoryId);
             return View(dish);
         }
 
@@ -131,7 +131,7 @@ namespace PizzeriaMassagotti.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", dish.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", dish.CategoryId);
             return View(dish);
         }
 
@@ -149,17 +149,19 @@ namespace PizzeriaMassagotti.Controllers
 
             _dishService.RemoveIngredients(id);
 
-            List<Ingredient> testList = new List<Ingredient>();
+            //List<Ingredient> testList = new List<Ingredient>();
             foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
             {
                 var ingStr = item.Remove(0, 11);
                 var ingId = Int32.Parse(ingStr);
                 var listIngredient = _ingredientService.All().FirstOrDefault(d => d.IngredientId == ingId);
-                testList.Add(listIngredient);
+                //testList.Add(listIngredient);
 
-                
-                DishIngredient di = new DishIngredient() { Dish = dish, Ingredient = listIngredient };
-                _context.DishIngredients.Add(di);
+
+                //DishIngredient di = new DishIngredient() { Dish = dish, Ingredient = listIngredient };
+                //_context.DishIngredients.Add(di);
+
+                _context.DishIngredients.Add(new DishIngredient() { Dish = dish, Ingredient = listIngredient });
 
             }
             
@@ -183,7 +185,7 @@ namespace PizzeriaMassagotti.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", dish.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", dish.CategoryId);
             return View(dish);
         }
 

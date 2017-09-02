@@ -1,14 +1,100 @@
-﻿@*@inject PizzeriaMassagotti.Services.CartService cartService
-
-<h2>Your order</h2>
-<h6>@cartService.Total()</h6>*@
+﻿@model List<PizzeriaMassagotti.Models.Category>
+@inject PizzeriaMassagotti.Services.CartService _cartService
 
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+<form asp-controller="Home" asp-action="MakeOrderAction" method="post">
+    <div class="row">
+        <div class="col-md-4">
+            @{
+            Html.RenderPartial("_ShoppingCart", _cartService.GetCart());
+            }
+
+        </div>
+        <div class="col-md-8">
+            <h2>Menu</h2>
+            @{
+                Html.RenderPartial("_MakeOrder", Model);
+            }
+        </div>       
+    </div>
+</form>
+
+
+
+@*@model IEnumerable<PizzeriaMassagotti.Models.Dish>
+@inject PizzeriaMassagotti.Services.CartService cartService*@
+
+@*<h2>Your order</h2>
+<h6>@cartService.Total()</h6>*@
+
+@*@{
+    ViewData["Title"] = "Home Page";
+}*@
+
+@*<div class="row">
+    <div class="col-md-3">
+        @{
+        Html.RenderPartial("_ShoppingCart");
+        }
+    </div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        Ingredients
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @foreach (var i in item.DishIngredients)
+                        {
+                        @i.Ingredient.Name
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.DishId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.DishId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.DishId">Delete</a>*@
+                        @*<a asp-action="AddToCart" asp-route-id="@item.DishId">AddToCart</a> |*@
+                        @*<a asp-action="AddToCart" asp-route-id="@item.DishId"><span class="glyphicon glyphicon-shopping-cart"></span></a>*@
+                    @*</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>*@
+
+@*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -111,4 +197,4 @@
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
     </div>
-</div>
+</div>*@

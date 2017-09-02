@@ -1,0 +1,29 @@
+﻿@model PizzeriaMassagotti.Models.Dish
+@inject PizzeriaMassagotti.Services.DishService _dishService
+
+
+
+    @*@{
+        var url = Url.Action("getImg", "Dishes", new {DishId = Model.DishId });
+    }*@
+@* ovanstående kod för att hämta bild på pizza *@
+
+<div>
+    <table>
+        <tr>
+            <td>
+                <p>@Model.Name @Model.Price</p>
+                @foreach (var item in Model.DishIngredients)
+                { 
+                <p>@item.Ingredient.Name</p>
+                }
+                @*<p>@_dishService.DishIngredientsForDishId(Model.DishId)</p>*@
+            </td>
+            <td>
+                <button type="submit" class="buy" name="add-@Model.DishId">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>

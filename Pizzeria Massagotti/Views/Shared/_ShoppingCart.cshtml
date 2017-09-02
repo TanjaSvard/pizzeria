@@ -1,0 +1,8 @@
+﻿@model List<PizzeriaMassagotti.Models.CartItem>
+
+
+@foreach (var item in Model)
+{    
+            Html.RenderPartial("_CartItem", item );
+      
+}

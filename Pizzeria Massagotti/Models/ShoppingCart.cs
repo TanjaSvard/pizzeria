@@ -9,7 +9,7 @@ namespace PizzeriaMassagotti.Models
     {
         public int ShoppingCartId { get; set; }
         public List<CartItem> CartItems { get; set; }         
-        public int TotalPrice { get; set; }
+        //public int TotalPrice { get; set; } gör om till metod i servicen
         public ApplicationUser ApplicationUser { get; set; }
         public string ApplicationUserId { get; set; }
     }
