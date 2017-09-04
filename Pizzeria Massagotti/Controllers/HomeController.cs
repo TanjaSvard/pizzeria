@@ -46,17 +46,17 @@ namespace PizzeriaMassagotti.Controllers
                     _cartService.AddDish(id);
 
                     break;
-                    //case "remove":
-                    //    _cartService.RemoveDish(id)
-                    //    break;
-                    //case "increase":
-                    //    _cartService.RemoveDish(id)
-                    //    break;
-                    //case "decrease":
-                    //    _cartService.RemoveDish(id)
-                    //    break;
+                //case "remove":
+                //    _cartService.RemoveDish(id);
+                //    break;
+                case "increase":
+                    _cartService.IncreaseNumberOfDishInCart(id);
+                        break;
+                case "decrease":
+                    _cartService.DecreaseNumberOfDishInCart(id);
+                    break;
                     //case "delete":
-                    //    _cartService.RemoveDish(id)
+                    //    _cartService.RemoveDish(id);
                     //    break;
                     //case "customize":
                     //    return RedirectToAction("Customize", "CartItems", new { })

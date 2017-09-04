@@ -34,7 +34,7 @@ namespace PizzeriaMassagotti.Services
             if (!exists)
             {
                 return new List<CartItem>();
-              
+
             }
 
 
@@ -42,7 +42,7 @@ namespace PizzeriaMassagotti.Services
 
             var cartItemList = new List<CartItem>();
 
-            foreach (var item in _context.CartItems.Where(c =>c.ShoppingCartId ==shoppingCartId))
+            foreach (var item in _context.CartItems.Where(c => c.ShoppingCartId == shoppingCartId))
             {
                 cartItemList.Add(item);
             }
@@ -82,51 +82,84 @@ namespace PizzeriaMassagotti.Services
                 cartItem.Quantity = 1;
                 _context.Add(cartItem);
                 _context.SaveChanges();
-            }         
+            }
 
         }
 
-        public void RemoveDish(int cartItemId)
-        {
-            //_context.Remove(cartItem);
-            _context.SaveChanges();
-        }
-
-
-
-        //public int TotalAmount()
+        //public void RemoveDish(int cartItemId)
         //{
-        //    return _context.ShoppingCart.
-        //}
-
-        //public int Total()
-        //{
-        //    return 123;
-        //}
-
-        //public int GetTempCartId(ISession session)
-        //{
-        //    if (!session.GetInt32("CartId").HasValue)
+        //    int shoppingCartId = _session.GetInt32("cartId").Value;
+        //    if (_context.CartItems.Any(c => c.CartItemId == cartItemId && c.ShoppingCartId == shoppingCartId))
         //    {
-        //        var tempCart = new CartItem {Items = new List<CartItem>() };
-        //        _context.ShoppingCart.Add(tempCart);
+        //        _context.Remove(_context.CartItems.Find(cartItemId));
         //        _context.SaveChanges();
-        //        session.SetInt32("CartId", tempCart.ShoppingCartId);
 
         //    }
-        //    var cartId = session.GetInt32("CartId").Value;
-        //    return cartId;
+
         //}
 
-        //public async Task AddItemForCurrentSession(ISession session, int dishId)
-        //{
-        //    var cartItem = new CartItem();
-        //    cartItem.ShoppingCartId = GetTempCartId(session);
-        //    cartItem.Dish = _context.Dishes.Find(dishId);
-        //    cartItem.Quantity = 1;
-        //    _context.Add(cartItem);
-        //    await _context.SaveChangesAsync();
-        //}
 
+        public void IncreaseNumberOfDishInCart(int cartItemId)
+        {
+            int shoppingCartId = _session.GetInt32("cartId").Value;
+            if (_context.CartItems.Any(c => c.CartItemId == cartItemId && c.ShoppingCartId == shoppingCartId))
+            {
+                var quantity = _context.CartItems.FirstOrDefault(c => c.CartItemId == cartItemId && c.ShoppingCartId == shoppingCartId).Quantity++;
+                _context.SaveChanges();
+            }
+        }
+
+        public void DecreaseNumberOfDishInCart(int cartItemId)
+        {
+            int shoppingCartId = _session.GetInt32("cartId").Value;
+
+            if (_context.CartItems.Any(c => c.CartItemId == cartItemId && c.ShoppingCartId == shoppingCartId))
+            {
+                var quantity = _context.CartItems.FirstOrDefault(c => c.CartItemId == cartItemId && c.ShoppingCartId == shoppingCartId).Quantity--;
+                _context.SaveChanges();
+            }
+
+            //else
+            //{
+            //    RemoveDish(cartItemId);
+            //}
+
+        }
     }
+
+
+    //public int TotalAmount()
+    //{
+    //    return _context.ShoppingCart.
+    //}
+
+    //public int Total()
+    //{
+    //    return 123;
+    //}
+
+    //public int GetTempCartId(ISession session)
+    //{
+    //    if (!session.GetInt32("CartId").HasValue)
+    //    {
+    //        var tempCart = new CartItem {Items = new List<CartItem>() };
+    //        _context.ShoppingCart.Add(tempCart);
+    //        _context.SaveChanges();
+    //        session.SetInt32("CartId", tempCart.ShoppingCartId);
+
+    //    }
+    //    var cartId = session.GetInt32("CartId").Value;
+    //    return cartId;
+    //}
+
+    //public async Task AddItemForCurrentSession(ISession session, int dishId)
+    //{
+    //    var cartItem = new CartItem();
+    //    cartItem.ShoppingCartId = GetTempCartId(session);
+    //    cartItem.Dish = _context.Dishes.Find(dishId);
+    //    cartItem.Quantity = 1;
+    //    _context.Add(cartItem);
+    //    await _context.SaveChangesAsync();
+    //}
+
 }
