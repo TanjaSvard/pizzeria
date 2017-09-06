@@ -63,16 +63,17 @@ namespace PizzeriaMassagotti.Data
 
             if (!context.Dishes.Any())
             {
-                var cheese = new Ingredient { Name = "Cheese" };
-                var ham = new Ingredient { Name = "Ham" };
-                var tomatoSauce = new Ingredient { Name = "Tomato" };
-                var mushroom = new Ingredient { Name = "Mushroom" };
-                var shrimp = new Ingredient { Name = "Shrimp" };
-                var tuna = new Ingredient { Name = "Tuna" };
-                var pineapple = new Ingredient { Name = "Pineapple" };
-                var curry = new Ingredient { Name = "Curry" };
-                var bacon = new Ingredient { Name = "Bacon" };
-                var banana = new Ingredient { Name = "Banana" };
+                var cheese = new Ingredient { Name = "Cheese", Price = 5 };
+                var ham = new Ingredient { Name = "Ham", Price = 10 };
+                var tomatoSauce = new Ingredient { Name = "Tomato", Price = 5 };
+                var mushroom = new Ingredient { Name = "Mushroom", Price = 5 };
+                var shrimp = new Ingredient { Name = "Shrimp", Price = 10 };
+                var tuna = new Ingredient { Name = "Tuna" , Price = 7};
+                var pineapple = new Ingredient { Name = "Pineapple", Price = 7 };
+                var curry = new Ingredient { Name = "Curry", Price = 3 };
+                var bacon = new Ingredient { Name = "Bacon", Price = 10 };
+                var banana = new Ingredient { Name = "Banana", Price = 5 };
+                var salmon = new Ingredient { Name = "Salmon", Price = 15};
 
                 var pizza = new Category { Name = "Pizza" };
                 var tropicalPizza = new Category { Name = "Tropical Pizza" };
