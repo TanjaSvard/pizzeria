@@ -6,6 +6,10 @@
     <Configurations>Debug;Release;LocalIIS</Configurations>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="web.config" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="BuildWebCompiler" Version="1.11.326" />
