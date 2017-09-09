@@ -7,16 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PizzeriaMassagotti.Data;
 using PizzeriaMassagotti.Models;
+using PizzeriaMassagotti.Services;
 
 namespace PizzeriaMassagotti.Controllers
 {
     public class CartItemsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly DishService _dishService;
+        private readonly IngredientService _ingredientService;
+        private readonly CartService _cartService;
 
-        public CartItemsController(ApplicationDbContext context)
+        public CartItemsController(ApplicationDbContext context,DishService dishService, IngredientService ingredientService, CartService cartService )
         {
             _context = context;
+            _dishService = dishService;
+            _ingredientService = ingredientService;
+            _cartService = cartService;
         }
 
         // GET: CartItems
@@ -80,12 +87,14 @@ namespace PizzeriaMassagotti.Controllers
                 return NotFound();
             }
 
-            var cartItem = await _context.CartItems.SingleOrDefaultAsync(m => m.CartItemId == id);
+            //var cartItem = await _context.CartItems.SingleOrDefaultAsync(m => m.CartItemId == id);
+            var cartItem = await _context.CartItems.Include(c => c.Dish).SingleOrDefaultAsync(m => m.CartItemId == id);
             if (cartItem == null)
             {
                 return NotFound();
             }
-            ViewData["DishId"] = new SelectList(_context.Dishes, "DishId", "DishId", cartItem.DishId);
+            
+            ViewData["DishId"] = new SelectList(_context.Dishes, "DishId", "Name", cartItem.DishId);
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", cartItem.ShoppingCartId);
             return View(cartItem);
         }
@@ -120,11 +129,13 @@ namespace PizzeriaMassagotti.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Home");
             }
             ViewData["DishId"] = new SelectList(_context.Dishes, "DishId", "DishId", cartItem.DishId);
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", cartItem.ShoppingCartId);
             return View(cartItem);
+
         }
 
         // GET: CartItems/Delete/5

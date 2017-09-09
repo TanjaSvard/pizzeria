@@ -69,20 +69,20 @@ namespace PizzeriaMassagotti.Services
 
             //int ? shoppingCartId = _session.GetInt32("cartId");
             int shoppingCartId = _session.GetInt32("cartId").Value;
-            if (_context.CartItems.Any(c => c.DishId == dishId && c.ShoppingCartId == shoppingCartId))
-            {
-                _context.CartItems.FirstOrDefault(c => c.DishId == dishId && c.ShoppingCartId == shoppingCartId).Quantity++;
-                _context.SaveChanges();
-            }
-            else
-            {
+            //if (_context.CartItems.Any(c => c.DishId == dishId && c.ShoppingCartId == shoppingCartId))
+            //{
+            //    _context.CartItems.FirstOrDefault(c => c.DishId == dishId && c.ShoppingCartId == shoppingCartId).Quantity++;
+            //    _context.SaveChanges();
+            //}
+            //else
+            //{
                 CartItem cartItem = new CartItem();
                 cartItem.ShoppingCartId = shoppingCartId;
                 cartItem.DishId = dishId;
                 cartItem.Quantity = 1;
                 _context.Add(cartItem);
                 _context.SaveChanges();
-            }
+            //}
 
         }
 

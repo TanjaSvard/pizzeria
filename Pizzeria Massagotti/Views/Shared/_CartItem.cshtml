@@ -11,7 +11,7 @@
                 {
                     <p>@item.Ingredient.Name</p>
                 }
-               
+
             </td>
             <td>
                 <button type="submit" class="buy" name="increase-@Model.CartItemId">
@@ -20,9 +20,24 @@
                 <button type="submit" class="buy" name="decrease-@Model.CartItemId">
                     <span class="glyphicon glyphicon-minus-sign"></span>
                 </button>
-                <button type="submit" class="buy" name="customize-@Model.DishId">
+                <button type="submit" class="buy" name="customize-@Model.CartItemId">
                     <span class="glyphicon glyphicon-edit"></span>
                 </button>
+
+                @*<a class="buy" asp-controller="CartItems" asp-action="Edit">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>*@
+
+                @*<a class="buy" asp-controller="CartItems" asp-action="Edit" name="customize-@Model.CartItemId">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>*@
+
+
+
+               
+                @*<button type="submit" class="buy" name="customize-@Model.DishId">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>*@
                 <button type="submit" class="buy" name="delete-@Model.CartItemId">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
