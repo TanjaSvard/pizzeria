@@ -88,12 +88,15 @@ namespace PizzeriaMassagotti.Controllers
             }
 
             //var cartItem = await _context.CartItems.SingleOrDefaultAsync(m => m.CartItemId == id);
-            var cartItem = await _context.CartItems.Include(c => c.Dish).SingleOrDefaultAsync(m => m.CartItemId == id);
+            var cartItem = await _context.CartItems.Include(c => c.Dish).ThenInclude(c=>c.DishIngredients).SingleOrDefaultAsync(m => m.CartItemId == id);
             if (cartItem == null)
             {
                 return NotFound();
             }
             
+
+
+
             ViewData["DishId"] = new SelectList(_context.Dishes, "DishId", "Name", cartItem.DishId);
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", cartItem.ShoppingCartId);
             return View(cartItem);

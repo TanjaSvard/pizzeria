@@ -1,7 +1,7 @@
 ﻿@model PizzeriaMassagotti.Models.CartItem
 @inject PizzeriaMassagotti.Services.CartService _cartService
 @inject PizzeriaMassagotti.Services.IngredientService _ingredients
-@inject PizzeriaMassagotti.Services.DishService _dish
+@inject PizzeriaMassagotti.Services.DishService _dishService
 
 @{
     ViewData["Title"] = "Edit";
@@ -47,12 +47,34 @@
 
             <div class="form-group checkbox">
 
-                @foreach (var ingredient in _ingredients.All())
+                @*@foreach (var ingredient in _ingredients.All())
                 {
                     <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" @(_dish.DishHasIngredient(Model.DishId, ingredient.IngredientId) ? "checked" : "") />
-                        <p>
-                            @ingredient.Name
-                        </p>
+
+                    <p>
+                        @(ingredient.Name + " ")
+                    </p>
+                }*@
+
+                @foreach (var ingredient in _dishService.DishIngredientsForDishId(Model.DishId))
+                {
+                    <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" checked />
+
+                    <p>
+                        @(ingredient.Ingredient.Name + " ")
+                    </p>
+                }
+</div>
+
+            <div class="form-group checkbox">
+                
+                <p>Additional ingredients</p>
+                @foreach (var ingredient in _ingredients.All())
+                {
+                    <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId"/>
+                    <p>
+                        @(ingredient.Name + " " + ingredient.Price + "kr")
+                    </p>
                 }
             </div>
 

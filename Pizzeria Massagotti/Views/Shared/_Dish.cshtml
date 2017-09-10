@@ -2,8 +2,7 @@
 @inject PizzeriaMassagotti.Services.DishService _dishService
 
 
-
-    @*@{
+@*@{
         var url = Url.Action("getImg", "Dishes", new {DishId = Model.DishId });
     }*@
 @* ovanstående kod för att hämta bild på pizza *@
@@ -14,9 +13,10 @@
             <td>
                 <p>@Model.Name @Model.Price</p>
                 @foreach (var item in Model.DishIngredients)
-                { 
-                <p>@item.Ingredient.Name</p>
+                {
+                    @(item.Ingredient.Name + " ")
                 }
+
                 @*<p>@_dishService.DishIngredientsForDishId(Model.DishId)</p>*@
             </td>
             <td>

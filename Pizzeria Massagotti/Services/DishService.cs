@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PizzeriaMassagotti.Models;
 using PizzeriaMassagotti.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace PizzeriaMassagotti.Services
 {
@@ -24,7 +25,7 @@ namespace PizzeriaMassagotti.Services
 
         public List<DishIngredient> DishIngredientsForDishId(int dishId)
         {
-            return _context.DishIngredients.Where(d => d.DishId == dishId).ToList();
+            return _context.DishIngredients.Where(d => d.DishId == dishId).Include(c=>c.Ingredient).ToList();
         }
    
         public bool DishHasIngredient(int dishId, int ingredientId)

@@ -9,7 +9,7 @@
                 <p>@Model.Dish.Name @Model.Dish.Price @Model.Quantity </p>
                 @foreach (var item in Model.Dish.DishIngredients)
                 {
-                    <p>@item.Ingredient.Name</p>
+                    @(item.Ingredient.Name + " ")
                 }
 
             </td>
