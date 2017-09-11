@@ -7,18 +7,17 @@
         <tr>
             <td>
                 <p>@Model.Dish.Name @Model.Dish.Price @Model.Quantity </p>
-                @if (Model.Dish.DishIngredients != null)
-                {
-                    @foreach (var item in Model.Dish.DishIngredients)
+                
+                    @foreach (var item in _cartService.All(Model.CartItemId))
                 {
                         @(item.Ingredient.Name + " ")
                     }
-                }
+                
 
 
             </td>
 
-            <td>
+            @*<td>
                 @if (Model.CartItemIngredients != null)
                 {
                     @foreach (var item in _cartService.All(Model.CartItemId))
@@ -26,7 +25,7 @@
                         @(item.Ingredient.Name + " ")
                     }
                 }
-            </td>
+            </td>*@
 
             @*<td>
                 @if (Model.CartItemIngredients != null)

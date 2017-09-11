@@ -56,7 +56,7 @@
                     </p>
                 }*@
 
-                @foreach (var ingredient in _dishService.DishIngredientsForDishId(Model.DishId))
+                @foreach (var ingredient in Model.CartItemIngredients)
                 {
                     <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" checked />
 

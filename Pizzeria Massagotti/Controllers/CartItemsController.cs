@@ -89,7 +89,7 @@ namespace PizzeriaMassagotti.Controllers
             }
 
             //var cartItem = await _context.CartItems.SingleOrDefaultAsync(m => m.CartItemId == id);
-            var cartItem = await _context.CartItems.Include(c => c.Dish).ThenInclude(c => c.DishIngredients).SingleOrDefaultAsync(m => m.CartItemId == id);
+            var cartItem = await _context.CartItems.Include(c => c.Dish).Include(c => c.CartItemIngredients).ThenInclude(c=> c.Ingredient).SingleOrDefaultAsync(m => m.CartItemId == id);
             if (cartItem == null)
             {
                 return NotFound();
@@ -113,7 +113,7 @@ namespace PizzeriaMassagotti.Controllers
             }
             ///////från DishController //////////
 
-            _dishService.RemoveIngredients(id);
+          
             _cartService.RemoveCartItemIngredients(id);
 
             foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))

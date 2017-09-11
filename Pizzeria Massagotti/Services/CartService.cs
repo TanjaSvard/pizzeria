@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PizzeriaMassagotti.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PizzeriaMassagotti.Services
 {
@@ -79,6 +80,11 @@ namespace PizzeriaMassagotti.Services
             CartItem cartItem = new CartItem();
             cartItem.ShoppingCartId = shoppingCartId;
             cartItem.DishId = dishId;
+            cartItem.CartItemIngredients = new List<CartItemIngredient>();
+            foreach (var item in _context.DishIngredients.Where(m => m.DishId == dishId))
+            {
+                cartItem.CartItemIngredients.Add(new CartItemIngredient { CartItem = cartItem, IngredientId = item.IngredientId});
+            }
             cartItem.Quantity = 1;
             _context.Add(cartItem);
             _context.SaveChanges();
@@ -126,7 +132,7 @@ namespace PizzeriaMassagotti.Services
 
                 else
                 {
-                    RemoveDish(cartItemId);                   
+                    RemoveDish(cartItemId);
                 }
             }
         }
@@ -147,7 +153,7 @@ namespace PizzeriaMassagotti.Services
 
         public List<CartItemIngredient> All(int cartItemId)
         {
-            return _context.CartItemIngredients.Where(x => x.CartItemId == cartItemId).ToList();
+            return _context.CartItemIngredients.Include(c =>c.Ingredient).Where(x => x.CartItemId == cartItemId).ToList();
 
         }
 
