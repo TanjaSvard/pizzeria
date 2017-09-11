@@ -7,12 +7,37 @@
         <tr>
             <td>
                 <p>@Model.Dish.Name @Model.Dish.Price @Model.Quantity </p>
-                @foreach (var item in Model.Dish.DishIngredients)
+                @if (Model.Dish.DishIngredients != null)
                 {
-                    @(item.Ingredient.Name + " ")
+                    @foreach (var item in Model.Dish.DishIngredients)
+                {
+                        @(item.Ingredient.Name + " ")
+                    }
                 }
 
+
             </td>
+
+            <td>
+                @if (Model.CartItemIngredients != null)
+                {
+                    @foreach (var item in _cartService.All(Model.CartItemId))
+                {
+                        @(item.Ingredient.Name + " ")
+                    }
+                }
+            </td>
+
+            @*<td>
+                @if (Model.CartItemIngredients != null)
+                {
+                    @foreach (var item in Model.CartItemIngredients)
+                {
+                        @(item.Ingredient.Name + " ")
+                    }
+                }
+            </td>*@
+
             <td>
                 <button type="submit" class="buy" name="increase-@Model.CartItemId">
                     <span class="glyphicon glyphicon-plus-sign"></span>
@@ -25,16 +50,13 @@
                 </button>
 
                 @*<a class="buy" asp-controller="CartItems" asp-action="Edit">
-                    <span class="glyphicon glyphicon-edit"></span>
-                </a>*@
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>*@
 
                 @*<a class="buy" asp-controller="CartItems" asp-action="Edit" name="customize-@Model.CartItemId">
-                    <span class="glyphicon glyphicon-edit"></span>
-                </a>*@
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>*@
 
-
-
-               
                 @*<button type="submit" class="buy" name="customize-@Model.DishId">
                         <span class="glyphicon glyphicon-edit"></span>
                     </button>*@

@@ -130,6 +130,27 @@ namespace PizzeriaMassagotti.Services
                 }
             }
         }
+
+
+        public void RemoveCartItemIngredients(int cartItemId)
+        {
+            var cartItemIngs = _context.CartItemIngredients.Where(x => x.CartItemId == cartItemId);
+
+            foreach (var ing in cartItemIngs)
+            {
+                _context.Remove(ing);
+            }
+
+            _context.SaveChanges();
+        }
+
+
+        public List<CartItemIngredient> All(int cartItemId)
+        {
+            return _context.CartItemIngredients.Where(x => x.CartItemId == cartItemId).ToList();
+
+        }
+
     }
 
 
