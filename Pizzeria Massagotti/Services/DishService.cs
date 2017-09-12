@@ -42,7 +42,6 @@ namespace PizzeriaMassagotti.Services
             {
                 _context.Remove(ing);
             }
-
             _context.SaveChanges();
         }
     }

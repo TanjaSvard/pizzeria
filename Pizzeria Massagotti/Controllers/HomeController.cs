@@ -45,9 +45,6 @@ namespace PizzeriaMassagotti.Controllers
                 case "add":
                     _cartService.AddDish(id);
                     break;
-                //case "remove":
-                //    _cartService.RemoveDish(id);
-                //    break;
                 case "increase":
                     _cartService.IncreaseNumberOfDishInCart(id);        
                     break;

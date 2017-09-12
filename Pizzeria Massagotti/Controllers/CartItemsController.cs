@@ -151,7 +151,7 @@ namespace PizzeriaMassagotti.Controllers
             }
             ViewData["DishId"] = new SelectList(_context.Dishes, "DishId", "DishId", cartItem.DishId);
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", cartItem.ShoppingCartId);
-            return View(cartItem.CartItemIngredients);
+            return View(cartItem);
 
         }
 

@@ -26,16 +26,17 @@ namespace PizzeriaMassagotti.Services
         }
 
 
+        //public List<CartItem> GetCart()
+
         public List<CartItem> GetCart()
         {
             byte[] cartIdBytes = new byte[4];
 
             bool exists = _session.TryGetValue("cartId", out cartIdBytes);
-
+            
             if (!exists)
-            {
+            {             
                 return new List<CartItem>();
-
             }
 
 
@@ -47,7 +48,7 @@ namespace PizzeriaMassagotti.Services
             {
                 cartItemList.Add(item);
             }
-
+           
             return cartItemList;
         }
 
@@ -86,6 +87,7 @@ namespace PizzeriaMassagotti.Services
                 cartItem.CartItemIngredients.Add(new CartItemIngredient { CartItem = cartItem, IngredientId = item.IngredientId});
             }
             cartItem.Quantity = 1;
+            cartItem.Price = _context.Dishes.FirstOrDefault(x => x.DishId == dishId).Price;
             _context.Add(cartItem);
             _context.SaveChanges();
             //}
@@ -157,14 +159,36 @@ namespace PizzeriaMassagotti.Services
 
         }
 
+
+        //public int TotalAmount(List<CartItem> listOfCartItems)
+        //{
+        //    int shoppingCartId = _session.GetInt32("cartId").Value;
+        //    int totalAmount = 0;
+        //    int pricePerItem = 0;
+
+
+        //   var allItemsInCart = _context.CartItems.Include(c=>c.Dish).ThenInclude(c=>c.DishIngredients).ThenInclude(c=>c.Ingredient).Where(c => c.ShoppingCartId == shoppingCartId).ToList();
+        //    listOfCartItems = allItemsInCart;
+        //    foreach (var item in listOfCartItems)
+        //    {
+        //        pricePerItem += item.Dish.Price;
+        //        totalAmount = item.Quantity*pricePerItem;
+        //    }
+
+        //    return totalAmount;
+        //}
+
+        public int TotalAmount(List<CartItem> listOfCartItems)
+        {          
+            var totalAmount = listOfCartItems.Sum(x=>x.Price*x.Quantity);
+         
+            return totalAmount;
+        }
+
     }
 
 
-    //public int TotalAmount()
-    //{
-    //    return _context.ShoppingCart.
-    //}
-
+  
     //public int Total()
     //{
     //    return 123;
