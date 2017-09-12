@@ -105,7 +105,7 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CartItemId,ShoppingCartId,DishId,Quantity")] CartItem cartItem, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("CartItemId,ShoppingCartId,DishId,Quantity,Price")] CartItem cartItem, IFormCollection collection)
         {
             if (id != cartItem.CartItemId)
             {
@@ -113,8 +113,9 @@ namespace PizzeriaMassagotti.Controllers
             }
             ///////från DishController //////////
 
-          
             _cartService.RemoveCartItemIngredients(id);
+            var _cartItem = _context.CartItems.Include(ci => ci.CartItemIngredients)
+                .Where(ci => ci.CartItemId == id).FirstOrDefault();
 
             foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
             {
@@ -122,21 +123,22 @@ namespace PizzeriaMassagotti.Controllers
                 var ingId = Int32.Parse(ingStr);
                 var listIngredient = _ingredientService.All().FirstOrDefault(d => d.IngredientId == ingId);
 
+                _cartItem.CartItemIngredients.Add(new CartItemIngredient() { Ingredient = listIngredient });
+                _cartItem.Price += _dishService.DishHasIngredient(_cartItem.DishId, listIngredient.IngredientId) 
+                    ? 0: listIngredient.Price;
 
-                _context.CartItemIngredients.Add(new CartItemIngredient() { CartItem = cartItem, Ingredient = listIngredient });
             }
-            ///////////////////////////////////
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(cartItem);
+                    _context.Update(_cartItem);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CartItemExists(cartItem.CartItemId))
+                    if (!CartItemExists(_cartItem.CartItemId))
                     {
                         return NotFound();
                     }
@@ -149,9 +151,9 @@ namespace PizzeriaMassagotti.Controllers
                 //return RedirectToAction(nameof(Index));
                 return RedirectToAction("Index", "Home");
             }
-            ViewData["DishId"] = new SelectList(_context.Dishes, "DishId", "DishId", cartItem.DishId);
-            ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", cartItem.ShoppingCartId);
-            return View(cartItem);
+            ViewData["DishId"] = new SelectList(_context.Dishes, "DishId", "DishId", _cartItem.DishId);
+            ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", _cartItem.ShoppingCartId);
+            return View(_cartItem);
 
         }
 

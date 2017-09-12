@@ -26,31 +26,27 @@ namespace PizzeriaMassagotti.Services
         }
 
 
-        //public List<CartItem> GetCart()
-
-        public List<CartItem> GetCart()
+        
+        public ShoppingCart GetCart()
         {
             byte[] cartIdBytes = new byte[4];
 
             bool exists = _session.TryGetValue("cartId", out cartIdBytes);
-            
-            if (!exists)
-            {             
-                return new List<CartItem>();
-            }
 
+            if (!exists)
+            {
+                return new ShoppingCart { CartItems = new List<CartItem>() };
+            }
 
             int shoppingCartId = _session.GetInt32("cartId").Value;
 
-            var cartItemList = new List<CartItem>();
+            return _context.ShoppingCart.Include(c => c.CartItems)
+                .Where(c => c.ShoppingCartId == shoppingCartId).FirstOrDefault();
 
-            foreach (var item in _context.CartItems.Where(c => c.ShoppingCartId == shoppingCartId))
-            {
-                cartItemList.Add(item);
-            }
-           
-            return cartItemList;
         }
+        
+
+
 
 
 
@@ -81,13 +77,14 @@ namespace PizzeriaMassagotti.Services
             CartItem cartItem = new CartItem();
             cartItem.ShoppingCartId = shoppingCartId;
             cartItem.DishId = dishId;
+            cartItem.Price = _context.Dishes.FirstOrDefault(x => x.DishId == dishId).Price;
             cartItem.CartItemIngredients = new List<CartItemIngredient>();
             foreach (var item in _context.DishIngredients.Where(m => m.DishId == dishId))
             {
-                cartItem.CartItemIngredients.Add(new CartItemIngredient { CartItem = cartItem, IngredientId = item.IngredientId});
+                cartItem.CartItemIngredients.Add(new CartItemIngredient { CartItem = cartItem, IngredientId = item.IngredientId});              
             }
             cartItem.Quantity = 1;
-            cartItem.Price = _context.Dishes.FirstOrDefault(x => x.DishId == dishId).Price;
+            
             _context.Add(cartItem);
             _context.SaveChanges();
             //}
@@ -178,21 +175,24 @@ namespace PizzeriaMassagotti.Services
         //    return totalAmount;
         //}
 
-        public int TotalAmount(List<CartItem> listOfCartItems)
-        {          
-            var totalAmount = listOfCartItems.Sum(x=>x.Price*x.Quantity);
-         
-            return totalAmount;
-        }
+        //public int TotalAmount(List<CartItem> listOfCartItems)
+        //{          
+        //    var totalAmount = listOfCartItems.Sum(x=>x.Price*x.Quantity);
 
+        //    return totalAmount;
+        //}
+
+
+        public int TotalAmount(int shopCartId)
+        {
+            return _context.CartItems.Where(ci => ci.ShoppingCartId == shopCartId)
+                .Sum(ci => ci.Price * ci.Quantity);
+        }
     }
 
 
   
-    //public int Total()
-    //{
-    //    return 123;
-    //}
+   
 
     //public int GetTempCartId(ISession session)
     //{

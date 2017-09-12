@@ -30,6 +30,8 @@ namespace PizzeriaMassagottiUnitTest
             services.AddTransient<DishService>();
             services.AddTransient<IngredientService>();
             services.AddTransient<HomeController>();
+            services.AddTransient<CartItemsController>();
+
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             //services.AddTransient<ISession, TestSession>();
 
