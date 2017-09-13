@@ -157,31 +157,7 @@ namespace PizzeriaMassagotti.Services
         }
 
 
-        //public int TotalAmount(List<CartItem> listOfCartItems)
-        //{
-        //    int shoppingCartId = _session.GetInt32("cartId").Value;
-        //    int totalAmount = 0;
-        //    int pricePerItem = 0;
-
-
-        //   var allItemsInCart = _context.CartItems.Include(c=>c.Dish).ThenInclude(c=>c.DishIngredients).ThenInclude(c=>c.Ingredient).Where(c => c.ShoppingCartId == shoppingCartId).ToList();
-        //    listOfCartItems = allItemsInCart;
-        //    foreach (var item in listOfCartItems)
-        //    {
-        //        pricePerItem += item.Dish.Price;
-        //        totalAmount = item.Quantity*pricePerItem;
-        //    }
-
-        //    return totalAmount;
-        //}
-
-        //public int TotalAmount(List<CartItem> listOfCartItems)
-        //{          
-        //    var totalAmount = listOfCartItems.Sum(x=>x.Price*x.Quantity);
-
-        //    return totalAmount;
-        //}
-
+    
 
         public int TotalAmount(int shopCartId)
         {
@@ -192,7 +168,7 @@ namespace PizzeriaMassagotti.Services
 
 
   
-   
+ 
 
     //public int GetTempCartId(ISession session)
     //{
