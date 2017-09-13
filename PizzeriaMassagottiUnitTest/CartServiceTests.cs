@@ -16,7 +16,7 @@ namespace PizzeriaMassagottiUnitTest
         {
             base.InitializeDatabase();
             var context = serviceProvider.GetService<ApplicationDbContext>();
-            context.Dishes.Add(new Dish {Name = "Capricciosa", DishId = 1, Price = 80});
+            context.Dishes.Add(new Dish {Name = "Capricciosa", DishId = 1, Price = 80, DishIngredients = new List<DishIngredient>()});
             context.Ingredients.Add(new Ingredient { Name = "Bacon", IngredientId = 1, Price = 10});
             context.Ingredients.Add(new Ingredient { Name = "Cheese", IngredientId = 2, Price = 5});
             context.DishIngredients.Add(new DishIngredient { DishId = 1, IngredientId = 1});
