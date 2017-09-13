@@ -6,4 +6,7 @@
 {
     Html.RenderPartial("_CartItem", item);
 }
-<h5>@_cartService.TotalAmount(Model.ShoppingCartId)</h5>
+@if (_cartService.TotalAmount(Model.ShoppingCartId) > 0)
+{
+    <h5>@_cartService.TotalAmount(Model.ShoppingCartId)</h5>
+}

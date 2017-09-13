@@ -114,8 +114,9 @@ namespace PizzeriaMassagotti.Controllers
             ///////från DishController //////////
 
             _cartService.RemoveCartItemIngredients(id);
-            var _cartItem = _context.CartItems.Include(ci => ci.CartItemIngredients)
+            var _cartItem = _context.CartItems.Include(ci => ci.CartItemIngredients).Include(c=>c.Dish)
                 .Where(ci => ci.CartItemId == id).FirstOrDefault();
+            _cartItem.Price = _cartItem.Dish.Price;
 
             foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
             {

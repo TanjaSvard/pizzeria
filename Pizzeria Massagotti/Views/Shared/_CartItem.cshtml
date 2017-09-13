@@ -6,7 +6,7 @@
     <table>
         <tr>
             <td>
-                <p>@Model.Dish.Name @Model.Dish.Price @Model.Quantity </p>
+                <p>@Model.Dish.Name @Model.Price @Model.Quantity </p>
                 
                     @foreach (var item in _cartService.All(Model.CartItemId))
                 {

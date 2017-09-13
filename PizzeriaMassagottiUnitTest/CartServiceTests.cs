@@ -22,7 +22,7 @@ namespace PizzeriaMassagottiUnitTest
             context.DishIngredients.Add(new DishIngredient { DishId = 1, IngredientId = 1});
             context.DishIngredients.Add(new DishIngredient { DishId = 1, IngredientId = 2});
             context.CartItems.Add(new CartItem { DishId = 1, CartItemId = 1, ShoppingCartId = 4, Quantity = 1});
-            context.ShoppingCart.Add(new ShoppingCart {ShoppingCartId = 4});
+            context.ShoppingCart.Add(new ShoppingCart {ShoppingCartId = 4, CartItems = new List<CartItem>()});
             context.SaveChanges();
         }
 
