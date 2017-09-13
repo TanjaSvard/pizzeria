@@ -30,6 +30,7 @@ namespace PizzeriaMassagottiUnitTest
             Assert.Equal(2, ings.Count);//Assert
             Assert.Equal(ings[0].Name, "AAA");
             Assert.Equal(ings[1].Name, "BBB");
+            Assert.Equal(ings[0].Price, 5);
         }
     }
 }

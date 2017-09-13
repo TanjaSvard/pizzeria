@@ -13,16 +13,12 @@ namespace PizzeriaMassagotti.Services
     public class CartService
     {
         private readonly ApplicationDbContext _context;
-        private readonly IServiceProvider _services;
         private readonly ISession _session;
 
-        public CartService(ApplicationDbContext context, IServiceProvider services)
+        public CartService(ApplicationDbContext context, ISession session)
         {
             _context = context;
-            _services = services;
-            _session = services.GetRequiredService<IHttpContextAccessor>()?
-                .HttpContext.Session;
-
+            _session = session;
         }
 
 

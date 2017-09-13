@@ -33,7 +33,7 @@ namespace PizzeriaMassagottiUnitTest
             services.AddTransient<CartItemsController>();
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddTransient<ISession, TestSession>();
+            services.AddTransient<ISession, TestSession>();
 
             serviceProvider = services.BuildServiceProvider();
             services.AddSingleton<IServiceProvider>(serviceProvider);

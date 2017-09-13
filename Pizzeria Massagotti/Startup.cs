@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PizzeriaMassagotti.Data;
 using PizzeriaMassagotti.Models;
 using PizzeriaMassagotti.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace PizzeriaMassagotti
 {
@@ -50,6 +51,13 @@ namespace PizzeriaMassagotti
             });
 
 
+            services.AddTransient(typeof(ISession), serviceProvider =>
+                {
+                    var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
+                    return httpContextAccessor.HttpContext.Session;
+                });
+
+
             services.AddMvc();
         }
 
@@ -76,7 +84,7 @@ namespace PizzeriaMassagotti
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Dishes}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
             DbInitializer.Initialize(context, userManager, roleManager);
