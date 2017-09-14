@@ -45,6 +45,7 @@ namespace PizzeriaMassagotti
             services.AddTransient<DishService>();
             services.AddTransient<CategoryService>();
             services.AddTransient<CartService>();
+            services.AddTransient<PaymentService>();
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromSeconds(600);
                 options.Cookie.HttpOnly = true;

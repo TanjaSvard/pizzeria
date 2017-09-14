@@ -22,8 +22,14 @@ namespace PizzeriaMassagotti.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Orders.Include(o => o.ApplicationUser);
+            var applicationDbContext = _context.Orders.Include(o => o.ShoppingCart);
             return View(await applicationDbContext.ToListAsync());
+        }
+        [HttpPost]
+        public ActionResult Index(int shoppingCartId)
+        {
+            var applicationDbContext = _context.Orders.Include(o => o.ShoppingCart).FirstOrDefault(c =>c.ShoppingCartId == shoppingCartId);
+            return View(applicationDbContext);
         }
 
         // GET: Orders/Details/5
@@ -35,7 +41,7 @@ namespace PizzeriaMassagotti.Controllers
             }
 
             var order = await _context.Orders
-                .Include(o => o.ApplicationUser)
+                .Include(o => o.ShoppingCart)
                 .SingleOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
@@ -48,7 +54,7 @@ namespace PizzeriaMassagotti.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId");
             return View();
         }
 
@@ -57,7 +63,7 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,ApplicationUserId,OrderDateTime,TotalAmount")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderId,ShoppingCartId,Anonymous,ApplicationUserId,OrderDateTime")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +71,7 @@ namespace PizzeriaMassagotti.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id", order.ApplicationUserId);
+            ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", order.ShoppingCartId);
             return View(order);
         }
 
@@ -82,7 +88,7 @@ namespace PizzeriaMassagotti.Controllers
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id", order.ApplicationUserId);
+            ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", order.ShoppingCartId);
             return View(order);
         }
 
@@ -91,7 +97,7 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ApplicationUserId,OrderDateTime,TotalAmount")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShoppingCartId,Anonymous,ApplicationUserId,OrderDateTime")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -118,7 +124,7 @@ namespace PizzeriaMassagotti.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id", order.ApplicationUserId);
+            ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", order.ShoppingCartId);
             return View(order);
         }
 
@@ -131,7 +137,7 @@ namespace PizzeriaMassagotti.Controllers
             }
 
             var order = await _context.Orders
-                .Include(o => o.ApplicationUser)
+                .Include(o => o.ShoppingCart)
                 .SingleOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {

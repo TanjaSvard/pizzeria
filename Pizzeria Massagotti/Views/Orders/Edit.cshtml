@@ -14,6 +14,18 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="OrderId" />
             <div class="form-group">
+                <label asp-for="ShoppingCartId" class="control-label"></label>
+                <select asp-for="ShoppingCartId" class="form-control" asp-items="ViewBag.ShoppingCartId"></select>
+                <span asp-validation-for="ShoppingCartId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Anonymous" /> @Html.DisplayNameFor(model => model.Anonymous)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
                 <label asp-for="ApplicationUserId" class="control-label"></label>
                 <select asp-for="ApplicationUserId" class="form-control" asp-items="ViewBag.ApplicationUserId"></select>
                 <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
@@ -22,11 +34,6 @@
                 <label asp-for="OrderDateTime" class="control-label"></label>
                 <input asp-for="OrderDateTime" class="form-control" />
                 <span asp-validation-for="OrderDateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control" />
-                <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

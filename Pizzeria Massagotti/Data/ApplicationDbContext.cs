@@ -44,22 +44,6 @@ namespace PizzeriaMassagotti.Data
                .WithMany(d => d.Dishes)
                .HasForeignKey(c => c.CategoryId);
 
-            builder.Entity<Order>()
-                .HasOne(o => o.ApplicationUser)
-                .WithMany(u => u.Orders)
-                .HasForeignKey(o => o.ApplicationUserId);          
-
-            builder.Entity<OrderDish>()
-                .HasKey(od => new { od.OrderId, od.DishId });
-            builder.Entity<OrderDish>()
-                .HasOne(od => od.Order)
-                .WithMany(o => o.OrderDishes)
-                .HasForeignKey(od => od.OrderId);
-            builder.Entity<OrderDish>()
-                .HasOne(od => od.Dish)
-                .WithMany(d => d.OrderDishes)
-                .HasForeignKey(od => od.DishId);
-
             builder.Entity<CartItemIngredient>()
                 .HasKey(di => new { di.CartItemId, di.IngredientId });
             builder.Entity<CartItemIngredient>()
@@ -69,8 +53,8 @@ namespace PizzeriaMassagotti.Data
             builder.Entity<CartItemIngredient>()
                  .HasOne(di => di.Ingredient)
                  .WithMany(i => i.CartItemIngredients)
-                 .HasForeignKey(di => di.IngredientId);
-
+                 .HasForeignKey(di => di.IngredientId);              
+            
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
@@ -80,8 +64,7 @@ namespace PizzeriaMassagotti.Data
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDish> OrderDishes { get; set; }
+        public DbSet<Order> Orders { get; set; }     
         public DbSet<Category> Categories { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<CartItemIngredient> CartItemIngredients { get; set; }

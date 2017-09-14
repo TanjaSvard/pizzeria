@@ -8,11 +8,16 @@ namespace PizzeriaMassagotti.Models
     public class Order
     {
         public int OrderId { get; set; }
-        public List<OrderDish> OrderDishes { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public List<CartItem> CartItems { get; set; }
+        public int ShoppingCartId { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
+        public bool Anonymous { get; set; }
         public string ApplicationUserId { get; set; }
         public DateTime OrderDateTime { get; set; }
-        public int TotalAmount { get; set; }
-        
+
+        public Order()
+        {
+
+        }
     }
 }

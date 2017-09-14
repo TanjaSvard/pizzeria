@@ -48,16 +48,7 @@ namespace PizzeriaMassagotti.Data
 
 
 
-            //todo refactor
-            //todo add orders and orderdishes
-            //if (context.Dishes.ToList().Count == 0)
-            //{
-            // var capricciosa = new Dish { Name = "Capricciosa", Price = 90 };
-            // var margaritha = new Dish { Name = "Margherita", Price = 69 };
-            // var hawaii = new Dish { Name = "Hawaii", Price = 85 };
-            // context.AddRange(capricciosa, margaritha, hawaii);
-            // context.SaveChanges();
-            //}
+            
 
 
 
@@ -126,33 +117,7 @@ namespace PizzeriaMassagotti.Data
                 hawaii.DishIngredients.Add(hawaiiMushroom);
                 hawaii.DishIngredients.Add(hawaiiBanana);
                 hawaii.DishIngredients.Add(hawaiiPineapple);
-
-               
-
-                var firstOrder = new Order();
-                firstOrder.OrderDateTime = DateTime.Now;
-                firstOrder.ApplicationUser = studentUser;
-
-                var firstOrderHawaii = new OrderDish { Dish = hawaii, Order = firstOrder };
-                var firstOrderFungi = new OrderDish { Dish = fungi, Order = firstOrder };
-
-                var firstOrderDishes = new List<OrderDish>();
-                firstOrderDishes.Add(firstOrderHawaii);
-                firstOrderDishes.Add(firstOrderFungi);
-                firstOrder.OrderDishes = firstOrderDishes;
-
-                foreach (var dish in firstOrder.OrderDishes)
-                {
-                    firstOrder.TotalAmount = firstOrder.TotalAmount + dish.Dish.Price;
-                }
-                //firstOrder.TotalAmount = firstOrder.OrderDishes.ForEach(dish => dish.Dish.Price += dish.Dish.Price);
-
-                //var secondOrder = new Order();
-
-                studentUser.Orders.Add(firstOrder);
-
-                context.Orders.AddRange(firstOrder);
-                context.OrderDishes.AddRange(firstOrderFungi, firstOrderHawaii);
+                                                             
                 context.Ingredients.AddRange(cheese, tomatoSauce, ham, mushroom, bacon, curry, banana, pineapple, shrimp, tuna);
                 context.Dishes.AddRange(capricciosa, margherita, hawaii, fungi);
                 context.DishIngredients.AddRange(capricciosaTomatoSauce, capricciosaCheese,
