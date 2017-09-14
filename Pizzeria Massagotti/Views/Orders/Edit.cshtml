@@ -1,4 +1,7 @@
 ﻿@model PizzeriaMassagotti.Models.Order
+@inject PizzeriaMassagotti.Services.CartService _cartService
+@inject PizzeriaMassagotti.Services.PaymentService _paymentService
+
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,7 +16,12 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="OrderId" />
-            <div class="form-group">
+            <input type="hidden" asp-for="ShoppingCartId" />
+            <input type="hidden" asp-for="Anonymous" />
+            <input type="hidden" asp-for="ApplicationUserId" />
+            <input type="hidden" asp-for="OrderDateTime" />
+
+            @*<div class="form-group">
                 <label asp-for="ShoppingCartId" class="control-label"></label>
                 <select asp-for="ShoppingCartId" class="form-control" asp-items="ViewBag.ShoppingCartId"></select>
                 <span asp-validation-for="ShoppingCartId" class="text-danger"></span>
@@ -34,7 +42,22 @@
                 <label asp-for="OrderDateTime" class="control-label"></label>
                 <input asp-for="OrderDateTime" class="form-control" />
                 <span asp-validation-for="OrderDateTime" class="text-danger"></span>
-            </div>
+            </div>*@
+
+        
+           
+            @foreach (var item in Model.CartItems)
+            {
+                <p>@item.Dish.Name, @item.Price kr</p>
+               @foreach (var ingredient in item.CartItemIngredients)
+               {
+                   @*<p>@String.Join(ingredient.Ingredient.Name)</p>*@
+                <p>@ingredient.Ingredient.Name</p>
+               }
+            }
+
+            <h6>Totalt pris: @_cartService.TotalAmount(Model.ShoppingCartId)</h6>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -43,7 +66,8 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @*<a asp-action="Index">Back to List</a>*@
+
 </div>
 
 @section Scripts {

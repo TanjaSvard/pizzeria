@@ -56,7 +56,7 @@ namespace PizzeriaMassagotti.Controllers
                     break;
                 case "customize":
                     return RedirectToAction("Edit", "CartItems", new { Id = id});
-                case "pay":
+                case "pay":                   
                     return RedirectToAction("Edit", "Orders", new { Id = id});
             }
 

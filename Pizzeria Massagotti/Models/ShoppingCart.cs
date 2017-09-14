@@ -10,6 +10,6 @@ namespace PizzeriaMassagotti.Models
         public int ShoppingCartId { get; set; }
         public List<CartItem> CartItems { get; set; }         
         public ApplicationUser ApplicationUser { get; set; }
-        public string ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }      
     }
 }

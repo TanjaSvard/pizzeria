@@ -40,6 +40,26 @@ namespace PizzeriaMassagotti.Services
                 .Where(c => c.ShoppingCartId == shoppingCartId).FirstOrDefault();
 
         }
+
+        public Order SaveCartOnOrder(int cartId)
+        {
+            var order = new Order();
+            var v = _context.ShoppingCart.Include(c => c.CartItems).ThenInclude(ci => ci.CartItemIngredients).FirstOrDefault(c => c.ShoppingCartId == cartId);
+            var listOfDishes = _context.Dishes.Include(m=>m.DishIngredients).ThenInclude(c=>c.Ingredient).ToList();
+            order.ShoppingCartId = v.ShoppingCartId;
+            
+
+            foreach (var item in v.CartItems)
+            {
+                var d = listOfDishes.FirstOrDefault(x => x.DishId == item.DishId);
+                item.Dish = d;                 
+            }
+
+            order.CartItems = v.CartItems;
+            _context.Add(order);
+            _context.SaveChanges();
+            return order;
+        }
         
 
         public void AddDish(int dishId)
@@ -148,9 +168,7 @@ namespace PizzeriaMassagotti.Services
 
         }
 
-
-    
-
+  
         public int TotalAmount(int shopCartId)
         {
             return _context.CartItems.Where(ci => ci.ShoppingCartId == shopCartId)

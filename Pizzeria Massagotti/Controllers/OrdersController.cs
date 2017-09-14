@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PizzeriaMassagotti.Data;
 using PizzeriaMassagotti.Models;
+using PizzeriaMassagotti.Services;
 
 namespace PizzeriaMassagotti.Controllers
 {
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly CartService _cartService;
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context, CartService cartService)
         {
             _context = context;
+            _cartService = cartService;
         }
 
         // GET: Orders
@@ -76,18 +79,21 @@ namespace PizzeriaMassagotti.Controllers
         }
 
         // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders.SingleOrDefaultAsync(m => m.OrderId == id);
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+            var order = _cartService.SaveCartOnOrder(id);
+            //var order = await _context.Orders.Include(m =>m.ShoppingCart).SingleOrDefaultAsync(m => m.ShoppingCartId == id);
             if (order == null)
             {
                 return NotFound();
             }
+
+            order.Anonymous = !User.Identity.IsAuthenticated;
+
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", order.ShoppingCartId);
             return View(order);
         }

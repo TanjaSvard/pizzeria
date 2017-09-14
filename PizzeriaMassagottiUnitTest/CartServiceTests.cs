@@ -21,8 +21,8 @@ namespace PizzeriaMassagottiUnitTest
             context.Ingredients.Add(new Ingredient { Name = "Cheese", IngredientId = 2, Price = 5});
             context.DishIngredients.Add(new DishIngredient { DishId = 1, IngredientId = 1});
             context.DishIngredients.Add(new DishIngredient { DishId = 1, IngredientId = 2});
-            //context.ShoppingCart.Add(new ShoppingCart { ShoppingCartId = 4, CartItems = new List<CartItem>() });
-            //context.CartItems.Add(new CartItem { DishId = 1, CartItemId = 1, ShoppingCartId = 4, Quantity = 1, Price = 80 });
+            context.ShoppingCart.Add(new ShoppingCart { ShoppingCartId = 4, CartItems = new List<CartItem>() });
+            context.CartItems.Add(new CartItem { DishId = 1, CartItemId = 1, ShoppingCartId = 4, Quantity = 1, Price = 80 });
             context.SaveChanges();
         }
 
@@ -31,12 +31,12 @@ namespace PizzeriaMassagottiUnitTest
         {
             //Arrange
             var _items= serviceProvider.GetService<CartService>();
-            _items.AddDish(1);
-            var cart = _items.GetCart();
+            //_items.AddDish(1);
+            //var cart = _items.GetCart();
 
             //Act
-            //var result = _items.TotalAmount(4);
-            var result = _items.TotalAmount(cart.ShoppingCartId);
+            var result = _items.TotalAmount(4);
+            //var result = _items.TotalAmount(cart.ShoppingCartId);
 
             //Assert
             Assert.Equal(80, result);

@@ -14,10 +14,6 @@ namespace PizzeriaMassagotti.Models
         public bool Anonymous { get; set; }
         public string ApplicationUserId { get; set; }
         public DateTime OrderDateTime { get; set; }
-
-        public Order()
-        {
-
-        }
+  
     }
 }
