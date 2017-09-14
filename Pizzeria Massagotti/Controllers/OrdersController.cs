@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using PizzeriaMassagotti.Data;
 using PizzeriaMassagotti.Models;
 using PizzeriaMassagotti.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace PizzeriaMassagotti.Controllers
 {
@@ -15,11 +17,16 @@ namespace PizzeriaMassagotti.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly CartService _cartService;
+        private readonly UserManager<ApplicationUser> _user;
+        private readonly IHttpContextAccessor _accessor;
 
-        public OrdersController(ApplicationDbContext context, CartService cartService)
+
+        public OrdersController(ApplicationDbContext context, CartService cartService, UserManager<ApplicationUser> user, IHttpContextAccessor accessor)
         {
             _context = context;
             _cartService = cartService;
+            _user = user;
+            _accessor = accessor;
         }
 
         // GET: Orders
@@ -94,6 +101,15 @@ namespace PizzeriaMassagotti.Controllers
 
             order.Anonymous = !User.Identity.IsAuthenticated;
 
+            if (!order.Anonymous)
+            {
+                var user = _user.GetUserAsync(_accessor.HttpContext.User).Result;
+                order.Name = user.Name;
+                order.Address = user.Address;
+                order.ZipCode = user.ZipCode;
+                order.City = user.City;
+            }
+
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", order.ShoppingCartId);
             return View(order);
         }
@@ -103,7 +119,7 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShoppingCartId,Anonymous,ApplicationUserId,OrderDateTime")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShoppingCartId,Anonymous,ApplicationUserId,OrderDateTime")] Order order, IFormCollection collection)
         {
             if (id != order.OrderId)
             {

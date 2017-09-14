@@ -54,7 +54,6 @@ namespace PizzeriaMassagotti.Services
                 var d = listOfDishes.FirstOrDefault(x => x.DishId == item.DishId);
                 item.Dish = d;                 
             }
-
             order.CartItems = v.CartItems;
             _context.Add(order);
             _context.SaveChanges();

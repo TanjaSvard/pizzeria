@@ -3,13 +3,14 @@
 @inject PizzeriaMassagotti.Services.PaymentService _paymentService
 
 
+
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Your order</h2>
 
-<h4>Order</h4>
+@*<h4>Order</h4>*@
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -58,8 +59,18 @@
 
             <h6>Totalt pris: @_cartService.TotalAmount(Model.ShoppingCartId)</h6>
 
+          
+          
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Name" /> @Html.DisplayNameFor(model => model.Name)
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Pay" class="btn btn-default" />
             </div>
         </form>
     </div>
