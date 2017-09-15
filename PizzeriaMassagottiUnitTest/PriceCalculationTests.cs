@@ -43,7 +43,7 @@ namespace PizzeriaMassagottiUnitTest
             var dishIngredients2 = new DishIngredient { DishId = 1, IngredientId = 2, Dish = dish, Ingredient = ingredient2 };
             dish.DishIngredients.Add(dishIngredients1);
             dish.DishIngredients.Add(dishIngredients2);                        
-            var cartItem = new CartItem {CartItemId = 1, Dish=dish, CartItemIngredients = new List<CartItemIngredient>()};
+            var cartItem = new CartItem {CartItemId = 1, Dish=dish, DishId =1, CartItemIngredients = new List<CartItemIngredient>()};
             var cartItemIngredient1 = new CartItemIngredient { CartItemId = 1, CartItem = cartItem, IngredientId = 1, Ingredient = ingredient1 };
             var cartItemIngredient2 = new CartItemIngredient { CartItemId = 2, CartItem = cartItem, IngredientId = 2, Ingredient = ingredient2 };
             var cartItemIngredient3 = new CartItemIngredient { CartItemId = 3, CartItem = cartItem, IngredientId = 3, Ingredient = ingredient3 };

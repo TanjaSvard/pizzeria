@@ -14,8 +14,8 @@ namespace PizzeriaMassagotti.Services
         {
             Debug.WriteLine($"To:{ email} Subject:{subject} Message: {message}");
 
-            // i PaymentController, något i stil med
-            //await _emailSender.SendEmailAsync("tanja_jazz@hotmail.se", "Beställning", "Meddelande")
+            // i PaymentController/OrderController, något i stil med
+            //await _emailSender.SendEmailAsync("tanja_jazz@hotmail.se", "Order", "´Thank you for your order")
 
             return Task.CompletedTask;
         }

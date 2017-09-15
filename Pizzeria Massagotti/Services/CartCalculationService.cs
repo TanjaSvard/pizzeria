@@ -20,25 +20,19 @@ namespace PizzeriaMassagotti.Services
 
         public int TotalPriceForCartItemIngredients(CartItem cartItem)
         {
-            //lista m dishIngredients för dishen i cartitem
-            var listOfDishIngredients = cartItem.Dish.DishIngredients.Where(c => c.DishId == cartItem.DishId);
-          
+            //lista m dishIngredientsID för dishen i cartitem
             var tot = 0;
-            foreach (var cartItemIng in cartItem.CartItemIngredients)//går ignm CartItemIngredienter
+            var listOfDishIngredientsId = cartItem.Dish.DishIngredients.Select(c=>c.IngredientId);
+            var listOfCartItemIngredientsId = cartItem.CartItemIngredients.Select(c=>c.IngredientId);
+            var extraId = listOfCartItemIngredientsId.Except(listOfDishIngredientsId);
+            foreach (var ingredientId in extraId)
             {
-                foreach (var dishIng in listOfDishIngredients)//går ignm DishIngredienter
-                {
-                    if (cartItemIng.IngredientId == dishIng.IngredientId)
-                    {
-                        tot += 0;
-                        
-                    }
-                    else
-                    {
-                        tot += cartItemIng.Ingredient.Price;//lägger till pris bara ifall ing inte finns på dishen
-                    }
-                }               
+                tot += (cartItem.CartItemIngredients
+                    .FirstOrDefault(m => m.IngredientId == ingredientId))
+                    .Ingredient.Price;
+
             }
+          
             return tot;
         }
     }
