@@ -18,7 +18,10 @@ namespace PizzeriaMassagotti.Models
         public string Address { get; set; }
         public string ZipCode { get; set; }
         public string City { get; set; }
-    
+        public int CardNumber { get; set; }
+        public int CVC { get; set; }
+        public DateTime ExpireDate { get; set; }
+
 
 
     }
