@@ -87,9 +87,11 @@ namespace PizzeriaMassagotti.Controllers
             {
                 return NotFound();
             }
-
-            //var cartItem = await _context.CartItems.SingleOrDefaultAsync(m => m.CartItemId == id);
-            var cartItem = await _context.CartItems.Include(c => c.Dish).Include(c => c.CartItemIngredients).ThenInclude(c=> c.Ingredient).SingleOrDefaultAsync(m => m.CartItemId == id);
+         
+            var cartItem = await _context.CartItems.Include(c => c.Dish)
+                .Include(c => c.CartItemIngredients)
+                .ThenInclude(c=> c.Ingredient)
+                .SingleOrDefaultAsync(m => m.CartItemId == id);
             if (cartItem == null)
             {
                 return NotFound();
@@ -110,11 +112,10 @@ namespace PizzeriaMassagotti.Controllers
             if (id != cartItem.CartItemId)
             {
                 return NotFound();
-            }
-            ///////från DishController //////////
+            }        
 
             _cartService.RemoveCartItemIngredients(id);
-            var _cartItem = _context.CartItems.Include(ci => ci.CartItemIngredients).Include(c=>c.Dish)
+            var _cartItem = _context.CartItems.Include(ci => ci.CartItemIngredients).Include(c => c.Dish).ThenInclude(ci=>ci.DishIngredients).ThenInclude(m=>m.Ingredient)
                 .Where(ci => ci.CartItemId == id).FirstOrDefault();
             _cartItem.Price = _cartItem.Dish.Price;
 
@@ -124,7 +125,7 @@ namespace PizzeriaMassagotti.Controllers
                 var ingId = Int32.Parse(ingStr);
                 var listIngredient = _ingredientService.All().FirstOrDefault(d => d.IngredientId == ingId);
 
-                _cartItem.CartItemIngredients.Add(new CartItemIngredient() { Ingredient = listIngredient });
+                _cartItem.CartItemIngredients.Add(new CartItemIngredient() { Ingredient = listIngredient});
                 _cartItem.Price += _dishService.DishHasIngredient(_cartItem.DishId, listIngredient.IngredientId) 
                     ? 0: listIngredient.Price;
 
@@ -148,8 +149,7 @@ namespace PizzeriaMassagotti.Controllers
                         throw;
                     }
                 }
-             
-                //return RedirectToAction(nameof(Index));
+                          
                 return RedirectToAction("Index", "Home");
             }
             ViewData["DishId"] = new SelectList(_context.Dishes, "DishId", "DishId", _cartItem.DishId);

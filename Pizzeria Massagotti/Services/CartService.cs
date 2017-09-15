@@ -44,7 +44,9 @@ namespace PizzeriaMassagotti.Services
         public Order SaveCartOnOrder(int cartId)
         {
             var order = new Order();
-            var v = _context.ShoppingCart.Include(c => c.CartItems).ThenInclude(ci => ci.CartItemIngredients).FirstOrDefault(c => c.ShoppingCartId == cartId);
+            var v = _context.ShoppingCart.Include(c => c.CartItems).ThenInclude(ci => ci.CartItemIngredients)
+                .ThenInclude(c=>c.Ingredient)
+                .FirstOrDefault(c => c.ShoppingCartId == cartId);
             var listOfDishes = _context.Dishes.Include(m=>m.DishIngredients).ThenInclude(c=>c.Ingredient).ToList();
             order.ShoppingCartId = v.ShoppingCartId;
             
