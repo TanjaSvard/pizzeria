@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,11 +19,16 @@ namespace PizzeriaMassagotti.Models
         public string Address { get; set; }
         public string ZipCode { get; set; }
         public string City { get; set; }
-        public int CardNumber { get; set; }
-        public int CVC { get; set; }
+        [Required]
+        [DataType(DataType.CreditCard)]
+        [Display(Name = "CreditCard")]
+        public string CardNumber { get; set; }
+        [Required]
+        public string CVC { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [Range(2017,2050)]
+        [DisplayFormat(DataFormatString ="YYYY-MM", ApplyFormatInEditMode = true)]
         public DateTime ExpireDate { get; set; }
-
-
-
     }
 }

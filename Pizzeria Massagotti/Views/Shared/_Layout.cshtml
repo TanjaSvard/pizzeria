@@ -8,6 +8,7 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/main.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -34,12 +35,13 @@
                     <li><a asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a></li>
                     <li><a asp-area="" asp-controller="Ingredients" asp-action="Index">Ingredients</a></li>
                     <li><a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a></li>
-                    <li><a asp-area="" asp-controller="ShoppingCarts" asp-action="Index">ShoppingCart</a></li>               
 
                     @*@if (User.IsInRole("Admin"))
-                        {
-                            <li><a asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a></li>
-                        }*@
+                            {
+                                <li><a asp-area="" asp-controller="Dishes" asp-action="Index">Dishes</a></li>
+                            <li><a asp-area="" asp-controller="Ingredients" asp-action="Index">Ingredients</a></li>
+                        <li><a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a></li>
+                            }*@
                     @*<li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
@@ -48,25 +50,25 @@
     </nav>
 
     <div class="container">
-        <div class="row"> 
-            <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-2">
                 <p class="lead">
                     <img class="img-responsive" alt="Pizzeria Massagotti" src="" />
                 </p>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 @RenderBody()
-            </div>           
+            </div>
         </div>
     </div>
 
     @*<div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - PizzeriaMassagotti</p>
-        </footer>
-    </div>*@
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2017 - PizzeriaMassagotti</p>
+            </footer>
+        </div>*@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

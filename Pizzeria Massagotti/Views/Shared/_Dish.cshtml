@@ -1,29 +1,86 @@
 ﻿@model PizzeriaMassagotti.Models.Dish
 @inject PizzeriaMassagotti.Services.DishService _dishService
-
-
+@inject PizzeriaMassagotti.Services.IngredientService _ingredientService
 @*@{
         var url = Url.Action("getImg", "Dishes", new {DishId = Model.DishId });
     }*@
 @* ovanstående kod för att hämta bild på pizza *@
 
-<div>
-    <table>
-        <tr>
-            <td>
-                <p>@Model.Name @Model.Price</p>
-                @foreach (var item in Model.DishIngredients)
-                {
-                    @(item.Ingredient.Name + " ")
-                }
+<div class="dish-container">
 
+    <div class="col-md-12">
+    
+                <h5 class="pull-right">@Model.Price kr</h5>
+                <h4>@Model.Name</h4>
+                <h6 class="pull-right">                  
+                    <button type="submit" class="buy" name="add-@Model.DishId">
+                        <p class="glyphicon glyphicon-shopping-cart"></p>
+                    </button>
+                </h6>
+                <p>@foreach (var item in Model.DishIngredients)
+                {
+
+                    @(item.Ingredient.Name + " ")
+
+                }</p>
+            </div>
+    
+
+
+    @*<table class="table table-hover col-md-12">
+        <thead>
+            <tr>
+            
+                <th class="col-md-2">Name</th>
+                <th class="col-md-6">Ingredients</th>
+                <th class="col-md-2">Price</th>
+                <th class="col-md-2">Order</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                
+                <td class="col-md-2">@Model.Name</td>
+                <td class="col-md-6">
+                    <p>
+                        @foreach (var item in Model.DishIngredients)
+                        {
+
+                            @(item.Ingredient.Name + " ")
+
+                        }
+                    </p>
+                </td>
+                <td class="col-md-2">@Model.Price kr</td>
+                <td class="col-md-2">
+                    <button type="submit" class="buy" name="add-@Model.DishId">
+                        <p class="glyphicon glyphicon-shopping-cart"></p>
+                    </button>
+                </td>
+            </tr>
+        </tbody>*@
+        
+     
+        
+        @*<tr>
+            <td class="col-md-10">
+                <span>@Model.Name, @Model.Price kr</span>
+                <p>
+                    @foreach (var item in Model.DishIngredients)
+                    {
+
+                        @(item.Ingredient.Name + " ")
+
+                    }
+                </p>*@
                 @*<p>@_dishService.DishIngredientsForDishId(Model.DishId)</p>*@
-            </td>
-            <td>
+            @*</td>
+            <td class="col-md-2 shopping-cart">
                 <button type="submit" class="buy" name="add-@Model.DishId">
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                    <p class="glyphicon glyphicon-shopping-cart"></p>
                 </button>
             </td>
-        </tr>
-    </table>
+        </tr>*@
+    @*</table>*@
 </div>

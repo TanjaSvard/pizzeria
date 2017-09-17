@@ -8,6 +8,13 @@
       "wwwroot/css/site.css"
     ]
   },
+  //{
+  //  "outputFileName": "wwwroot/css/main.min.css",
+  //  // An array of relative input file paths. Globbing patterns supported
+  //  "inputFiles": [
+  //    "wwwroot/css/main.css"
+  //  ]
+  //},
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
