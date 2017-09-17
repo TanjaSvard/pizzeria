@@ -2,28 +2,28 @@
 @inject PizzeriaMassagotti.Services.DishService _dishService
 @inject PizzeriaMassagotti.Services.CartService _cartService
 
-<div class="cartitem-container" style="margin-bottom:20px">
-    <table class="table table-hover" style="margin:0">
+<div class="cartitem-container">
+    <table class="table table-hover">
 
         <tr>
             <td class="col-md-3">
               
                 <span>
-                    <button type="submit" class="buy" name="increase-@Model.CartItemId" style="padding:0;border:hidden;">
+                    <button type="submit" class="buy no-background" name="increase-@Model.CartItemId">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                     </button>
                 </span>
 
                     <span>@Model.Quantity</span>
 
-                    <button type="submit" class="buy" name="decrease-@Model.CartItemId"style="padding:0;border:hidden;">
+                    <button type="submit" class="buy no-background" name="decrease-@Model.CartItemId">
                         <i class="glyphicon glyphicon-minus-sign"></i>
                     </button>
               
             </td>
 
-            <td class="col-md-4">@Model.Dish.Name</td>
-            <td class="col-md-3">@Model.Price kr</td>
+            <td class="col-md-4 cartitem-name">@Model.Dish.Name</td>
+            <td class="col-md-3 cartitem-price">@Model.Price kr</td>
             <td class="col-md-1">
                 <button type="submit" class="buy" name="customize-@Model.CartItemId">
                     <i class="glyphicon glyphicon-edit"></i>

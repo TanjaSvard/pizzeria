@@ -11,7 +11,7 @@
 
 <form asp-controller="Home" asp-action="MakeOrderAction" method="post">
     <section class="homepage-container">       
-        <div class="shopping-cart">
+        <div class="sh-cart">
             <div class="col-md-6">
                 @{
                     Html.RenderPartial("_ShoppingCart", _cartService.GetCart());

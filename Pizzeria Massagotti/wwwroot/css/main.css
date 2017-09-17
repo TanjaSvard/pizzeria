@@ -1,9 +1,42 @@
-﻿.cartitem-container tr {
-  border-bottom: hidden;
-  background-color: lightyellow;
-  color: darkgoldenrod; }
+﻿.cartitem-container {
+  margin-bottom: 20px; }
+  .cartitem-container table.table-hover {
+    margin: 0px; }
+  .cartitem-container tr {
+    border-bottom: hidden;
+    background-color: lightyellow;
+    color: darkgoldenrod; }
+    .cartitem-container tr .cartitem-name {
+      color: darkgoldenrod; }
+    .cartitem-container tr .cartitem-price {
+      color: darkgoldenrod; }
+  .cartitem-container .cartitem_ingredients {
+    /*background-color: lightyellow;*/
+    background-color: #f5f5f5;
+    color: darkgoldenrod;
+    font-size: smaller;
+    font-style: italic; }
+    .cartitem-container .cartitem_ingredients p:hover {
+      background-color: #f5f5f5; }
+  .cartitem-container button.buy.no-background {
+    padding: 0;
+    border: hidden;
+    background-color: lightyellow; }
 
-.cartitem-container .cartitem_ingredients {
-  background-color: lightyellow;
-  color: darkgoldenrod; }
+.shoppingcart-container sh {
+  border-radius: 4%;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  background-color: aliceblue; }
+
+.lead {
+  background-color: darkgrey;
+  border-radius: 50%;
+  width: 95%;
+  height: auto;
+  padding-top: 25%;
+  padding-bottom: 25%;
+  margin-top: 20px;
+  margin-right: 10px;
+  text-align: center; }
 

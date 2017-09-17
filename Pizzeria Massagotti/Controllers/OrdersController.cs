@@ -19,14 +19,16 @@ namespace PizzeriaMassagotti.Controllers
         private readonly CartService _cartService;
         private readonly UserManager<ApplicationUser> _user;
         private readonly IHttpContextAccessor _accessor;
+        private readonly PaymentService _paymentService;
 
 
-        public OrdersController(ApplicationDbContext context, CartService cartService, UserManager<ApplicationUser> user, IHttpContextAccessor accessor)
+        public OrdersController(ApplicationDbContext context, CartService cartService, UserManager<ApplicationUser> user, IHttpContextAccessor accessor, PaymentService paymentService)
         {
             _context = context;
             _cartService = cartService;
             _user = user;
             _accessor = accessor;
+            _paymentService = paymentService;
         }
 
         // GET: Orders
@@ -111,6 +113,8 @@ namespace PizzeriaMassagotti.Controllers
             }
 
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", order.ShoppingCartId);
+            ViewBag.ExpireMonth = _paymentService.GetAllValidMonths();
+            ViewBag.ExpireYear = _paymentService.GetAllValidYears();
             return View(order);
         }
 
@@ -119,7 +123,7 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShoppingCartId,Anonymous,ApplicationUserId,OrderDateTime")] Order order, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShoppingCartId,Anonymous,ApplicationUserId,OrderDateTime,ExpireMonth,ExpireYear")] Order order, IFormCollection collection)
         {
             if (id != order.OrderId)
             {

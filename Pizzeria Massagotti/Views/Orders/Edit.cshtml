@@ -1,6 +1,7 @@
 ﻿@model PizzeriaMassagotti.Models.Order
 @inject PizzeriaMassagotti.Services.CartService _cartService
 @inject PizzeriaMassagotti.Services.PaymentService _paymentService
+@inject PizzeriaMassagotti.Services.IngredientService _ingredientService
 
 
 @{
@@ -8,9 +9,9 @@
 }
 <h2>Your order</h2>
 @*<h4>Order</h4>*@
-<hr />
+@*<hr />*@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="OrderId" />
@@ -18,81 +19,130 @@
             <input type="hidden" asp-for="Anonymous" />
             <input type="hidden" asp-for="ApplicationUserId" />
             <input type="hidden" asp-for="OrderDateTime" />
-         
 
-            <div class="form-group">
-                @foreach (var item in Model.CartItems)
-            {
-                    <p>@item.Dish.Name, @item.Price kr</p>
-                    @foreach (var ingredient in item.CartItemIngredients)
-                {
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th @*style="font-family:Castellar"*@>Name</th>
+                            <th @*style="font-family:Castellar" *@>Ingredients</th>
+                            <th @*style="font-family:Castellar" *@>Price</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                       @foreach (var item in Model.CartItems)
+                       {
+                            <tr>
+                                <td>@item.Dish.Name</td>
+                                <td>
+                                    @foreach (var ingredient in item.CartItemIngredients)
+                                    {
+                                        @(ingredient.Ingredient.Name + " ")
+
+                                    }
+                                </td>
+                                <td>@item.Price kr</td>
+                            </tr>
+                       }
+                        </tbody>
+                    </table>                   
+                        @*@foreach (var item in Model.CartItems)
+                            {
+                                    <p>@item.Dish.Name, @item.Price kr</p>
+                                    @foreach (var ingredient in item.CartItemIngredients)
+                                {*@
                         @*<p>@String.Join(ingredient.Ingredient.Name)</p>*@
-                        <p>@ingredient.Ingredient.Name</p>
-                    }
-                }
-                <h6>Totalt pris: @_cartService.TotalAmount(Model.ShoppingCartId)</h6>
-            </div>
+                        @*<p>@ingredient.Ingredient.Name</p>*@
+                        @*@(ingredient.Ingredient.Name + " ")*@
+                        @*}
+                            }*@
 
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="Name" /> @Html.DisplayNameFor(model => model.Name)
-                        </label>
+                        <h4>Totalt pris: @_cartService.TotalAmount(Model.ShoppingCartId)</h4>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="Address" /> @Html.DisplayNameFor(model => model.Address)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="ZipCode" /> @Html.DisplayNameFor(model => model.ZipCode)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="City" /> @Html.DisplayNameFor(model => model.City)
-                        </label>
-                    </div>
-                </div>
-            
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="CardNumber" /> @Html.DisplayNameFor(model => model.CardNumber)
-                    </label>
-                </div>
-            </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="CVC" /> @Html.DisplayNameFor(model => model.CVC)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="ExpireDate.Date" value ="YY/MM" type ="date"/> @Html.DisplayNameFor(model => model.ExpireDate.Date)
-                        </label>
-                    </div>
-                </div>          
-<div class="form-group">
-    <input type="submit" value="Pay" class="btn btn-default" />
-</div>
-        </form>
-    </div>
-</div>
+                    <div class="row">
+                        <div class="col-md-6 name-address">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.DisplayNameFor(model => model.Name)
+                                            <input asp-for="Name" class="form-control" />
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.DisplayNameFor(model => model.Address)
+                                            <input asp-for="Address" class="form-control" />
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.DisplayNameFor(model => model.ZipCode)
+                                            <input asp-for="ZipCode" class="form-control" />
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.DisplayNameFor(model => model.City)
+                                            <input asp-for="City" class="form-control" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 creditcard">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.DisplayNameFor(model => model.CardNumber)
+                                        <input asp-for="CardNumber" class="form-control" />
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.DisplayNameFor(model => model.CVC)
+                                        <input asp-for="CVC" class="form-control" />
+                                    </label>
+                                </div>
+                            </div>
 
-<div>
-    @*<a asp-action="Index">Back to List</a>*@
-</div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.DisplayNameFor(model => model.ExpireMonth)
+                                        <select asp-for="ExpireMonth" class="form-control" asp-items="ViewBag.ExpireMonth"></select>
+                                    </label>
+                                    <label>
+                                        @Html.DisplayNameFor(model => model.ExpireYear)
+                                        <select asp-for="ExpireYear" class="form-control" asp-items="ViewBag.ExpireYear"></select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="submit" value="Sign" class="btn btn-default" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @*<div>
+                <a asp-action="Index">Back to List</a>
+            </div>*@
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

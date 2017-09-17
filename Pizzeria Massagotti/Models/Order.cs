@@ -25,10 +25,16 @@ namespace PizzeriaMassagotti.Models
         public string CardNumber { get; set; }
         [Required]
         public string CVC { get; set; }
+
+        //[Required]
+        //[DataType(DataType.Date)]
+        //[Range(2017,2050)]
+        //[DisplayFormat(DataFormatString ="YYYY-MM", ApplyFormatInEditMode = true)]
+        //public DateTime ExpireDate { get; set; }
+
         [Required]
-        [DataType(DataType.Date)]
-        [Range(2017,2050)]
-        [DisplayFormat(DataFormatString ="YYYY-MM", ApplyFormatInEditMode = true)]
-        public DateTime ExpireDate { get; set; }
+        public string ExpireMonth { get; set; }
+        [Required]
+        public string ExpireYear { get; set; }
     }
 }
