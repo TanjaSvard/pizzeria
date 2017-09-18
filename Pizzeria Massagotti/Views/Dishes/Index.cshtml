@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<PizzeriaMassagotti.Models.Dish>
-
+@inject PizzeriaMassagotti.Services.DishService _dishService
 @{
     ViewData["Title"] = "Meny";
 }
@@ -62,10 +62,16 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @foreach (var i in item.DishIngredients)
+                    @*@foreach (var i in item.DishIngredients)
                     {
                         @i.Ingredient.Name
-                }
+                }*@
+                    @foreach (var di in _dishService.DishIngredientsForDishId(item.DishId))
+                    {
+
+                        @(di.Ingredient.Name + " ")
+
+                    }
 
                 </td>
                 <td>@Html.DisplayFor(modelItem => item.Category.Name)

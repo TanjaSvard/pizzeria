@@ -40,7 +40,7 @@ namespace PizzeriaMassagotti.Controllers
         [HttpPost]
         public ActionResult Index(int shoppingCartId)
         {
-            var applicationDbContext = _context.Orders.Include(o => o.ShoppingCart).FirstOrDefault(c =>c.ShoppingCartId == shoppingCartId);
+            var applicationDbContext = _context.Orders.Include(o => o.ShoppingCart).FirstOrDefault(c => c.ShoppingCartId == shoppingCartId);
             return View(applicationDbContext);
         }
 
@@ -136,6 +136,10 @@ namespace PizzeriaMassagotti.Controllers
                 {
                     _context.Update(order);
                     await _context.SaveChangesAsync();
+                    return View("ThankYou", order);
+
+
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -154,8 +158,16 @@ namespace PizzeriaMassagotti.Controllers
             return View(order);
         }
 
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        
+        [ValidateAntiForgeryToken]
+        public ActionResult Back()
+        {
+            return RedirectToAction("Index", "Home", _context.Categories.ToList());           
+        }
+  
+
+            // GET: Orders/Delete/5
+            public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {

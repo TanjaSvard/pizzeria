@@ -14,10 +14,10 @@
             <div class="total-price">
                 <h4>To pay: @_cartService.TotalAmount(Model.ShoppingCartId)</h4>
             </div>
-            
-            <form asp-controller="Order" asp-action="Edit" method="post">
-                <input id ="proceed-to-checkout" type="submit" class="btn btn-default" name="pay-@Model.ShoppingCartId" value="Proceed to checkout" />
-            </form>
+
+
+            <input id="proceed-to-checkout" type="submit" class="btn btn-default" name="pay-@Model.ShoppingCartId" value="Proceed to checkout" />
+
 
         }
     </div>

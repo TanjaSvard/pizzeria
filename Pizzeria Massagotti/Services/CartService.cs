@@ -165,7 +165,7 @@ namespace PizzeriaMassagotti.Services
 
         public List<CartItemIngredient> All(int cartItemId)
         {
-            return _context.CartItemIngredients.Include(c =>c.Ingredient).Where(x => x.CartItemId == cartItemId).ToList();
+            return _context.CartItemIngredients.Include(c =>c.Ingredient).Where(x => x.CartItemId == cartItemId).OrderBy(c=>c.Ingredient.Name).ToList();
 
         }
 

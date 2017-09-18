@@ -4,7 +4,8 @@
 .cartitem-container {
   margin-bottom: 10px; }
   .cartitem-container #increase:hover {
-    color: green; }
+    color: green;
+    background-color: #f5f5f5; }
   .cartitem-container #decrease:hover {
     color: green; }
   .cartitem-container #customize:hover {
@@ -63,7 +64,8 @@
   margin-top: 20px; }
   .homepage-container .make-order {
     background-color: #f5f5f5;
-    box-shadow: 10px 10px 5px #888888; }
+    /*box-shadow: 10px 10px 5px #888888;*/
+    box-shadow: 8px 8px 25px 7px #888888; }
 
 .order .table {
   margin-bottom: 40px; }

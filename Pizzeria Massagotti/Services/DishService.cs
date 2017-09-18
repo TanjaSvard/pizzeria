@@ -25,7 +25,7 @@ namespace PizzeriaMassagotti.Services
 
         public List<DishIngredient> DishIngredientsForDishId(int dishId)
         {
-            return _context.DishIngredients.Where(d => d.DishId == dishId).Include(c=>c.Ingredient).ToList();
+            return _context.DishIngredients.Where(d => d.DishId == dishId).Include(c=>c.Ingredient).OrderBy(i=>i.Ingredient.Name).ToList();
         }
    
         public bool DishHasIngredient(int dishId, int ingredientId)

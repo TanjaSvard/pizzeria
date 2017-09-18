@@ -9,28 +9,31 @@
 <section class="dish-container">
 
     <div class="col-md-12 container">
-    
-                <h5 class="pull-right">@Model.Price kr</h5>
-                <h4>@Model.Name</h4>
-                <h6 class="pull-right">                  
-                    <button type="submit" class="buy" name="add-@Model.DishId">
-                        <p class="glyphicon glyphicon-shopping-cart"></p>
-                    </button>
-                </h6>
-                <p>@foreach (var item in Model.DishIngredients)
-                {
 
-                    @(item.Ingredient.Name + " ")
+        <h5 class="pull-right">@Model.Price kr</h5>
+        <h4>@Model.Name</h4>
+        <h6 class="pull-right">
+            <button type="submit" class="buy" name="add-@Model.DishId">
+                <p class="glyphicon glyphicon-shopping-cart"></p>
+            </button>
+        </h6>
+        <p>
+            @*@foreach (var item in Model.DishIngredients)*@
+            @foreach (var item in _dishService.DishIngredientsForDishId(Model.DishId)) 
+            {
 
-                }</p>
-            </div>
-    
+                @(item.Ingredient.Name + " ")
+
+            }
+        </ p >
+    </ div >
+
 
 
     @*<table class="table table-hover col-md-12">
         <thead>
             <tr>
-            
+
                 <th class="col-md-2">Name</th>
                 <th class="col-md-6">Ingredients</th>
                 <th class="col-md-2">Price</th>
@@ -40,7 +43,7 @@
 
         <tbody>
             <tr>
-                
+
                 <td class="col-md-2">@Model.Name</td>
                 <td class="col-md-6">
                     <p>
@@ -60,22 +63,22 @@
                 </td>
             </tr>
         </tbody>*@
-        
-     
-        
-        @*<tr>
-            <td class="col-md-10">
-                <span>@Model.Name, @Model.Price kr</span>
-                <p>
-                    @foreach (var item in Model.DishIngredients)
-                    {
 
-                        @(item.Ingredient.Name + " ")
 
-                    }
-                </p>*@
-                @*<p>@_dishService.DishIngredientsForDishId(Model.DishId)</p>*@
-            @*</td>
+
+    @*<tr>
+        <td class="col-md-10">
+            <span>@Model.Name, @Model.Price kr</span>
+            <p>
+                @foreach (var item in Model.DishIngredients)
+                {
+
+                    @(item.Ingredient.Name + " ")
+
+                }
+            </p>*@
+    @*<p>@_dishService.DishIngredientsForDishId(Model.DishId)</p>*@
+    @*</td>
             <td class="col-md-2 shopping-cart">
                 <button type="submit" class="buy" name="add-@Model.DishId">
                     <p class="glyphicon glyphicon-shopping-cart"></p>

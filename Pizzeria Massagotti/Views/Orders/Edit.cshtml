@@ -40,7 +40,8 @@
                                     <td>@item.Dish.Name</td>
                                     <td>@item.Quantity</td>
                                     <td>
-                                        @foreach (var ingredient in item.CartItemIngredients)
+                                        @*@foreach (var ingredient in item.CartItemIngredients)*@
+                                        @foreach (var ingredient in _cartService.All(item.CartItemId))
                                         {
                                             @(ingredient.Ingredient.Name + " ")
 
@@ -62,7 +63,7 @@
                     @*@(ingredient.Ingredient.Name + " ")*@
                     @*}
                         }*@
-                  
+
                     <h4 class="total-price">Total amount: @(_cartService.TotalAmount(Model.ShoppingCartId) + " kr")</h4>
                 </div>
                 <div class="row">
@@ -142,13 +143,20 @@
                     </div>
                 </div>
             </form>
+
+            <div class="col-md-12 col-md-offset-6">
+                <form asp-action="Back">
+                    <input type="submit" class="btn btn-default" value="Back to cart"/>
+                </form>
+            </div>
         </div>
     </div>
 </section>
 
-        @*<div>
-                <a asp-action="Index">Back to List</a>
-            </div>*@
-        @section Scripts {
-            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        }
+
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
