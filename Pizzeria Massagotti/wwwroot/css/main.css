@@ -2,7 +2,15 @@
   padding-left: 0px; }
 
 .cartitem-container {
-  margin-bottom: 20px; }
+  margin-bottom: 10px; }
+  .cartitem-container #increase:hover {
+    color: green; }
+  .cartitem-container #decrease:hover {
+    color: green; }
+  .cartitem-container #customize:hover {
+    color: green; }
+  .cartitem-container #delete:hover {
+    color: darkred; }
   .cartitem-container table.table-hover {
     margin: 0px; }
   .cartitem-container tr {
@@ -24,6 +32,18 @@
     padding: 0;
     border: hidden;
     background-color: lightyellow; }
+
+.shoppingcart-container #proceed-to-checkout {
+  color: darkgoldenrod;
+  /*background-color:lightyellow;*/
+  border-color: darkgray; }
+  .shoppingcart-container #proceed-to-checkout:hover {
+    color: green; }
+
+.shoppingcart-container .total-price {
+  border-top: groove 1px;
+  border-color: lightgray;
+  text-align: end; }
 
 .lead {
   background-color: darkgrey;
@@ -50,7 +70,9 @@
 
 .order h4 {
   padding-top: 10px;
-  border-top: groove 2px black; }
+  border-top: groove 2px darkgoldenrod;
+  text-align: end;
+  color: darkgoldenrod; }
 
 .order .name-address {
   padding-top: 20px; }

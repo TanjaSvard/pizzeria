@@ -9,14 +9,14 @@
             <td class="col-md-3">
               
                 <span>
-                    <button type="submit" class="buy no-background" name="increase-@Model.CartItemId">
+                    <button id="increase" type="submit" class="buy no-background" name="increase-@Model.CartItemId">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                     </button>
                 </span>
 
                     <span>@Model.Quantity</span>
 
-                    <button type="submit" class="buy no-background" name="decrease-@Model.CartItemId">
+                    <button id="decrease" type="submit" class="buy no-background" name="decrease-@Model.CartItemId">
                         <i class="glyphicon glyphicon-minus-sign"></i>
                     </button>
               
@@ -25,12 +25,12 @@
             <td class="col-md-4 cartitem-name">@Model.Dish.Name</td>
             <td class="col-md-3 cartitem-price">@Model.Price kr</td>
             <td class="col-md-1">
-                <button type="submit" class="buy" name="customize-@Model.CartItemId">
+                <button id="customize" type="submit" class="buy" name="customize-@Model.CartItemId">
                     <i class="glyphicon glyphicon-edit"></i>
                 </button>
             </td>
             <td class="col-md-1">
-                <button type="submit" class="buy" name="delete-@Model.CartItemId">
+                <button id ="delete" type="submit" class="buy" name="delete-@Model.CartItemId">
                     <i class="glyphicon glyphicon-trash"></i>
                 </button>
             </td>

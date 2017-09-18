@@ -63,7 +63,7 @@
                     @*}
                         }*@
                   
-                    <h4 class="total-price">Total amount: @_cartService.TotalAmount(Model.ShoppingCartId)</h4>
+                    <h4 class="total-price">Total amount: @(_cartService.TotalAmount(Model.ShoppingCartId) + " kr")</h4>
                 </div>
                 <div class="row">
                     <div class="col-md-6 name-address">

@@ -1,3 +1,19 @@
-﻿.shoppingcart-container{
-  
+﻿.shoppingcart-container {
+
+    #proceed-to-checkout {
+        color: darkgoldenrod;
+        /*background-color:lightyellow;*/
+        border-color: darkgray;
+        
+
+        &:hover {
+            color: green;
+        }
+    }
+
+    .total-price {
+        border-top: groove 1px;
+        border-color: lightgray;
+        text-align: end;
+    }
 }

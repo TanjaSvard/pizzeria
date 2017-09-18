@@ -1,5 +1,30 @@
 ﻿.cartitem-container {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+
+    #increase {
+        &:hover {
+            color: green;
+        }
+    }
+
+    #decrease {
+        &:hover {
+            color: green;
+        }
+    }
+
+    #customize {
+        &:hover {
+            color: green;
+        }
+    }
+
+    #delete {
+        &:hover {
+            color: darkred;
+        }
+    }
+
 
     table.table-hover {
         margin: 0px;
