@@ -5,29 +5,31 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<div class="col-md-12 pull-right" >
-    <h2 class="col-md-offset-6" style="padding-left:10px;">Menu</h2>
-</div>
+<section class="homepage-container">
+    <div class="col-md-12 pull-right">
+        <h2 class="col-md-offset-6">Menu</h2>
+    </div>
 
-<form asp-controller="Home" asp-action="MakeOrderAction" method="post">
-    <section class="homepage-container">       
-        <div class="sh-cart">
-            <div class="col-md-6">
+    <form asp-controller="Home" asp-action="MakeOrderAction" method="post">
+
+        <div class="col-md-6 sh-cart">
+            @*<div class="col-md-6">*@
                 @{
                     Html.RenderPartial("_ShoppingCart", _cartService.GetCart());
                 }
-            </div>
+            @*</div>*@
         </div>
-        <div class="make-order">
-            <div class="col-md-6">
+        <div class="col-md-6 make-order">
+            @*<div class="col-md-6">*@
                 @*<h2>Menu</h2>*@
                 @{
                     Html.RenderPartial("_MakeOrder", Model);
                 }
-            </div>
+            @*</div>*@
         </div>
-      
-    </section>
-</form>
 
+
+    </form>
+
+</section>
 

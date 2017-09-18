@@ -2,11 +2,13 @@
 
 
     @foreach (var Category in Model)
-    { 
-        <h3>@Category.Name</h3>
-        @foreach (var dish in Category.Dishes)
-        {
-            Html.RenderPartial("_Dish", dish);
-        }
-       
+    {
+        <section class="menu">
+            <h3>@Category.Name</h3>
+            @foreach (var dish in Category.Dishes)
+            {
+                Html.RenderPartial("_Dish", dish);
+            }
+        </section>
     }
+    
