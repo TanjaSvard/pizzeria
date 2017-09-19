@@ -2,7 +2,7 @@
 @inject PizzeriaMassagotti.Services.DishService _dishService
 @inject PizzeriaMassagotti.Services.CartService _cartService
 
-<div class="cartitem-container">
+<section class="cartitem-container">
     <table class="table table-hover">
 
         <tr>
@@ -23,7 +23,7 @@
             </td>
 
             <td class="col-md-4 cartitem-name">@Model.Dish.Name</td>
-            <td class="col-md-3 cartitem-price">@Model.Price kr</td>
+            <td class="col-md-3 cartitem-price">@(Model.Price + " SEK")</td>
             <td class="col-md-1">
                 <button id="customize" type="submit" class="buy" name="customize-@Model.CartItemId">
                     <i class="glyphicon glyphicon-edit"></i>
@@ -44,47 +44,5 @@
                 @(item.Ingredient.Name + " ")
             }
         </p>
-    </div>
-
-
-
-
-
- 
-
-
-
-
-    @*<tr>
-                    <td class="col-md-3" style="border-top:none">
-                        <span>@Model.Dish.Name @Model.Price @Model.Quantity </span>
-
-                            <p><span>
-        @foreach (var item in _cartService.All(Model.CartItemId))
-        {
-            @(item.Ingredient.Name + " ")
-        }
-    </span></p>
-
-                    </td>
-
-                    <td class="col-md-3" style="border-top:none">
-                        <button type="submit" class="buy" name="increase-@Model.CartItemId">
-                            <span class="glyphicon glyphicon-plus-sign"></span>
-                        </button>
-
-                        <button type="submit" class="buy" name="decrease-@Model.CartItemId">
-                            <span class="glyphicon glyphicon-minus-sign"></span>
-                        </button>
-
-                        <button type="submit" class="buy" name="customize-@Model.CartItemId">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </button>
-
-                        <button type="submit" class="buy" name="delete-@Model.CartItemId">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                    </td>
-                </tr>
-            </table>*@
-</div>
+    </div>                   
+</section>
