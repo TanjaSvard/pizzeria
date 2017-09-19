@@ -22,7 +22,7 @@ namespace PizzeriaMassagotti.Services
         }
 
 
-        
+
         public ShoppingCart GetCart()
         {
             byte[] cartIdBytes = new byte[4];
@@ -45,23 +45,44 @@ namespace PizzeriaMassagotti.Services
         {
             var order = new Order();
             var v = _context.ShoppingCart.Include(c => c.CartItems).ThenInclude(ci => ci.CartItemIngredients)
-                .ThenInclude(c=>c.Ingredient)
+                .ThenInclude(c => c.Ingredient)
                 .FirstOrDefault(c => c.ShoppingCartId == cartId);
-            var listOfDishes = _context.Dishes.Include(m=>m.DishIngredients).ThenInclude(c=>c.Ingredient).ToList();
+            var listOfDishes = _context.Dishes.Include(m => m.DishIngredients).ThenInclude(c => c.Ingredient).ToList();
             order.ShoppingCartId = v.ShoppingCartId;
-            
+
 
             foreach (var item in v.CartItems)
             {
                 var d = listOfDishes.FirstOrDefault(x => x.DishId == item.DishId);
-                item.Dish = d;                 
+                item.Dish = d;
             }
             order.CartItems = v.CartItems;
+         
             _context.Add(order);
             _context.SaveChanges();
             return order;
         }
-        
+
+        public Order GetOrder(int cartId)
+        {       
+            var order = _context.Orders.Include(c => c.CartItems).ThenInclude(ci => ci.CartItemIngredients)
+                .ThenInclude(c => c.Ingredient)
+                .FirstOrDefault(c => c.ShoppingCartId == cartId);
+            //var listOfDishes = _context.Dishes.Include(m => m.DishIngredients).ThenInclude(c => c.Ingredient).ToList();
+            //order.ShoppingCartId = v.ShoppingCartId;
+
+
+            //foreach (var item in v.CartItems)
+            //{
+            //    var d = listOfDishes.FirstOrDefault(x => x.DishId == item.DishId);
+            //    item.Dish = d;
+            //}
+            //order.CartItems = v.CartItems;
+
+           
+            return order;
+        }
+
 
         public void AddDish(int dishId)
         {
@@ -94,10 +115,10 @@ namespace PizzeriaMassagotti.Services
             cartItem.CartItemIngredients = new List<CartItemIngredient>();
             foreach (var item in _context.DishIngredients.Where(m => m.DishId == dishId))
             {
-                cartItem.CartItemIngredients.Add(new CartItemIngredient { CartItem = cartItem, IngredientId = item.IngredientId});              
+                cartItem.CartItemIngredients.Add(new CartItemIngredient { CartItem = cartItem, IngredientId = item.IngredientId });
             }
             cartItem.Quantity = 1;
-            
+
             _context.Add(cartItem);
             _context.SaveChanges();
             //}
@@ -165,44 +186,22 @@ namespace PizzeriaMassagotti.Services
 
         public List<CartItemIngredient> All(int cartItemId)
         {
-            return _context.CartItemIngredients.Include(c =>c.Ingredient).Where(x => x.CartItemId == cartItemId).OrderBy(c=>c.Ingredient.Name).ToList();
+            return _context.CartItemIngredients.Include(c => c.Ingredient).Where(x => x.CartItemId == cartItemId).OrderBy(c => c.Ingredient.Name).ToList();
 
         }
 
-  
+
         public int TotalAmount(int shopCartId)
         {
             return _context.CartItems.Where(ci => ci.ShoppingCartId == shopCartId)
                 .Sum(ci => ci.Price * ci.Quantity);
         }
+
+        public void RemoveCart()
+        {
+            _session.Remove("cartId");
+            
+        }
+
     }
-
-
-  
- 
-
-    //public int GetTempCartId(ISession session)
-    //{
-    //    if (!session.GetInt32("CartId").HasValue)
-    //    {
-    //        var tempCart = new CartItem {Items = new List<CartItem>() };
-    //        _context.ShoppingCart.Add(tempCart);
-    //        _context.SaveChanges();
-    //        session.SetInt32("CartId", tempCart.ShoppingCartId);
-
-    //    }
-    //    var cartId = session.GetInt32("CartId").Value;
-    //    return cartId;
-    //}
-
-    //public async Task AddItemForCurrentSession(ISession session, int dishId)
-    //{
-    //    var cartItem = new CartItem();
-    //    cartItem.ShoppingCartId = GetTempCartId(session);
-    //    cartItem.Dish = _context.Dishes.Find(dishId);
-    //    cartItem.Quantity = 1;
-    //    _context.Add(cartItem);
-    //    await _context.SaveChangesAsync();
-    //}
-
 }

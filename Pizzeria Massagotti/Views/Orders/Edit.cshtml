@@ -17,9 +17,12 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="OrderId" />
                 <input type="hidden" asp-for="ShoppingCartId" />
+                <input type="hidden" asp-for="ShoppingCart" />
                 <input type="hidden" asp-for="Anonymous" />
                 <input type="hidden" asp-for="ApplicationUserId" />
                 <input type="hidden" asp-for="OrderDateTime" />
+                <input type="hidden" asp-for="CartItems" />
+
 
                 <div class="table-striped">
                     <table class="table">
@@ -74,6 +77,7 @@
                                     <label>
                                         @Html.DisplayNameFor(model => model.Name)
                                         <input asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
                                     </label>
                                 </div>
                             </div>
@@ -82,6 +86,7 @@
                                     <label>
                                         @Html.DisplayNameFor(model => model.Address)
                                         <input asp-for="Address" class="form-control" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
                                     </label>
                                 </div>
                             </div>
@@ -90,6 +95,7 @@
                                     <label>
                                         @Html.DisplayNameFor(model => model.ZipCode)
                                         <input asp-for="ZipCode" class="form-control" />
+                                        <span asp-validation-for="ZipCode" class="text-danger"></span>
                                     </label>
                                 </div>
                             </div>
@@ -98,6 +104,16 @@
                                     <label>
                                         @Html.DisplayNameFor(model => model.City)
                                         <input asp-for="City" class="form-control" />
+                                        <span asp-validation-for="City" class="text-danger"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.DisplayNameFor(model => model.Email)
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
                                     </label>
                                 </div>
                             </div>
@@ -109,6 +125,7 @@
                                 <label>
                                     @Html.DisplayNameFor(model => model.CardNumber)
                                     <input asp-for="CardNumber" class="form-control" />
+                                    <span asp-validation-for="CardNumber" class="text-danger"></span>
                                 </label>
                             </div>
                         </div>
@@ -117,6 +134,7 @@
                                 <label>
                                     @Html.DisplayNameFor(model => model.CVC)
                                     <input asp-for="CVC" class="form-control" />
+                                    <span asp-validation-for="CVC" class="text-danger"></span>
                                 </label>
                             </div>
                         </div>
@@ -126,6 +144,7 @@
                                 <label>
                                     @Html.DisplayNameFor(model => model.ExpireMonth)
                                     <select asp-for="ExpireMonth" class="form-control" asp-items="ViewBag.ExpireMonth"></select>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
                                 </label>
                                 <label>
                                     @Html.DisplayNameFor(model => model.ExpireYear)

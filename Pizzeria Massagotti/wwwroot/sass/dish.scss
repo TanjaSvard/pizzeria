@@ -1,5 +1,18 @@
 ﻿.dish-container {
     .container {
-        padding-left:0px;
+        padding-left: 0px;
+
+        &:hover {
+            background-color: lightyellow;
+            box-shadow: 2px 2px 5px darkgrey;
+        }
+
+        h6 {
+            &:hover {
+                button.buy {
+                    color: green;
+                }
+            }
+        }
     }
 }

@@ -20,15 +20,17 @@ namespace PizzeriaMassagotti.Controllers
         private readonly UserManager<ApplicationUser> _user;
         private readonly IHttpContextAccessor _accessor;
         private readonly PaymentService _paymentService;
+        private readonly IEmailSender _emailSender;
 
 
-        public OrdersController(ApplicationDbContext context, CartService cartService, UserManager<ApplicationUser> user, IHttpContextAccessor accessor, PaymentService paymentService)
+        public OrdersController(ApplicationDbContext context, CartService cartService, UserManager<ApplicationUser> user, IHttpContextAccessor accessor, PaymentService paymentService, IEmailSender emailSender)
         {
             _context = context;
             _cartService = cartService;
             _user = user;
             _accessor = accessor;
             _paymentService = paymentService;
+            _emailSender = emailSender;
         }
 
         // GET: Orders
@@ -110,6 +112,7 @@ namespace PizzeriaMassagotti.Controllers
                 order.Address = user.Address;
                 order.ZipCode = user.ZipCode;
                 order.City = user.City;
+                order.Email = user.Email;
             }
 
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", order.ShoppingCartId);
@@ -123,19 +126,25 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShoppingCartId,Anonymous,ApplicationUserId,OrderDateTime,ExpireMonth,ExpireYear")] Order order, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShoppingCartId,ShoppingCart,CartItems,Anonymous,ApplicationUserId,OrderDateTime,CardNumber,CVC,ExpireMonth,ExpireYear,Name,Address,ZipCode,City,Email")] Order order, IFormCollection collection)
         {
-            if (id != order.OrderId)
-            {
-                return NotFound();
-            }
+            //if (id != order.OrderId)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(order);
+                   var orderToUpdate = _cartService.GetOrder(order.ShoppingCartId);
+                    orderToUpdate.Name = order.Name;
+                    orderToUpdate.Address = order.Address;
+                    orderToUpdate.City = order.City;
+                    orderToUpdate.ZipCode = order.ZipCode;              
+                    _context.Update(orderToUpdate);
                     await _context.SaveChangesAsync();
+                    await _emailSender.SendEmailAsync(order.Email,"Order","Thank you for your order");
                     return View("ThankYou", order);
 
 
@@ -152,7 +161,7 @@ namespace PizzeriaMassagotti.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
             }
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", order.ShoppingCartId);
             return View(order);
@@ -164,10 +173,17 @@ namespace PizzeriaMassagotti.Controllers
         {
             return RedirectToAction("Index", "Home", _context.Categories.ToList());           
         }
-  
 
-            // GET: Orders/Delete/5
-            public async Task<IActionResult> Delete(int? id)
+       
+        public ActionResult ReturnHome()
+        {
+            _cartService.RemoveCart();
+            return RedirectToAction("Index", "Home", _context.Categories.ToList());
+        }
+
+
+        // GET: Orders/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {

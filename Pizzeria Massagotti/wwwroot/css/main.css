@@ -1,5 +1,10 @@
 ﻿.dish-container .container {
   padding-left: 0px; }
+  .dish-container .container:hover {
+    background-color: lightyellow;
+    box-shadow: 2px 2px 5px darkgrey; }
+  .dish-container .container h6:hover button.buy {
+    color: green; }
 
 .cartitem-container {
   margin-bottom: 10px; }
@@ -35,7 +40,6 @@
     background-color: lightyellow; }
 
 .shoppingcart-container #proceed-to-checkout {
-  color: darkgoldenrod;
   /*background-color:lightyellow;*/
   border-color: darkgray; }
   .shoppingcart-container #proceed-to-checkout:hover {

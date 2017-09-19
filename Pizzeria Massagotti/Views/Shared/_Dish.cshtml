@@ -9,12 +9,11 @@
 <section class="dish-container">
 
     <div class="col-md-12 container">
-
         <h5 class="pull-right">@Model.Price kr</h5>
         <h4>@Model.Name</h4>
         <h6 class="pull-right">
-            <button type="submit" class="buy" name="add-@Model.DishId">
-                <p class="glyphicon glyphicon-shopping-cart"></p>
+            <button id =" cartButton" type="submit" class="buy" name="add-@Model.DishId">
+                <i class="glyphicon glyphicon-shopping-cart"></i>
             </button>
         </h6>
         <p>
@@ -25,8 +24,8 @@
                 @(item.Ingredient.Name + " ")
 
             }
-        </ p >
-    </ div >
+        </p>
+    </div>
 
 
 

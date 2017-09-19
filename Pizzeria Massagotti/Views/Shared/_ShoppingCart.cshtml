@@ -12,7 +12,7 @@
         @if (_cartService.TotalAmount(Model.ShoppingCartId) > 0)
         {
             <div class="total-price">
-                <h4>To pay: @_cartService.TotalAmount(Model.ShoppingCartId)</h4>
+                <h4>To pay: @(_cartService.TotalAmount(Model.ShoppingCartId) + " SEK") </h4>
             </div>
 
 
