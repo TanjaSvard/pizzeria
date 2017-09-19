@@ -37,7 +37,8 @@ namespace PizzeriaMassagotti.Models
 
         [Required(ErrorMessage = "Email is required")]
         [MaxLength(50, ErrorMessage = "Too long e-mail address")]
-        [EmailAddress]
+        [RegularExpression("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9]+)*\\.([a-z]{2,4})$", ErrorMessage ="Email is invalid")]
+        //[EmailAddress(ErrorMessage ="Email is invalid")]
         [Display(Name = "Email")]
         public string Email { get; set; }
      
