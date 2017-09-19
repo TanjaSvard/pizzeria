@@ -41,15 +41,7 @@ namespace PizzeriaMassagotti.Data
                 Email = "admin@test.se"
             };
             var adminUserResult = userManager.CreateAsync(adminUser, "Pa$$w0rd").Result;
-            userManager.AddToRoleAsync(adminUser, "Admin");
-
-
-           
-
-
-
-            
-
+            userManager.AddToRoleAsync(adminUser, "Admin"); //OBS! Måste ändras för Azure till async
 
 
             if (!context.Dishes.Any())
@@ -71,7 +63,7 @@ namespace PizzeriaMassagotti.Data
                 var mozarella = new Ingredient { Name = "Mozarella", Price = 5 };
                 var extraTomato = new Ingredient { Name = "Tomato, extra", Price = 3 };
                 var extraCheese = new Ingredient { Name = "Cheese, extra", Price = 3 };
-                var chili = new Ingredient { Name = "Cheese, extra", Price = 3 };
+                var chili = new Ingredient { Name = "Chili", Price = 3 };
 
 
 

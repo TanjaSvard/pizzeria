@@ -25,7 +25,19 @@ namespace PizzeriaMassagotti.Services
             //return _context.Ingredients.OrderByDescending(i => i.Name)).ToList();
         }
 
-
-
+        public List<Ingredient> Adjusted(int cartItemId)
+        {
+            var allIngredients = _context.Ingredients.ToList();
+            var cartItem = _context.CartItems.Include(ci=>ci.CartItemIngredients).ThenInclude(i=>i.Ingredient).FirstOrDefault(c=>c.CartItemId == cartItemId);
+            var adjustedListOfIngredients = new List<Ingredient>();
+            foreach (var item in allIngredients)
+            {
+                if (!cartItem.CartItemIngredients.Any(c=>c.IngredientId==item.IngredientId))
+                {
+                    adjustedListOfIngredients.Add(item);
+                }                             
+            }            
+            return adjustedListOfIngredients.OrderBy(c=>c.Name).ToList();
+        }
     }
 }

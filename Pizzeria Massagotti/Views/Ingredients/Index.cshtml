@@ -15,6 +15,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
+            <th>@(Html.DisplayNameFor(model => model.Price) + " (SEK)")</th>
             <th></th>
         </tr>
     </thead>
@@ -24,6 +25,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            @*<td>
+                @(Html.DisplayFor(modelItem => item.Price) + "SEK")
+            </td>*@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IngredientId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.IngredientId">Details</a> |

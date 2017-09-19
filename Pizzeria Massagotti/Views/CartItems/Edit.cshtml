@@ -6,22 +6,23 @@
 @{
     ViewData["Title"] = "Edit";
 }
-<h2>Customize your dish</h2>
-<h4>@Model.Dish.Name</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<section class="customize-cartitem">
+    <h2>Customize your dish</h2>
+    <h4>@Model.Dish.Name</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
 
-        @*<p>@Model.Dish.Name @Model.Dish.Price @Model.Quantity </p>*@
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CartItemId" />
-            <input type="hidden" asp-for="ShoppingCartId" />
-            <input type="hidden" asp-for="DishId" />
-            <input type="hidden" asp-for="Quantity" />
-            
-            <div class="form-group checkbox checkbox-inline" >
-               
+            @*<p>@Model.Dish.Name @Model.Dish.Price @Model.Quantity </p>*@
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CartItemId" />
+                <input type="hidden" asp-for="ShoppingCartId" />
+                <input type="hidden" asp-for="DishId" />
+                <input type="hidden" asp-for="Quantity" />
+
+                <div class="form-group checkbox checkbox-inline">
+
                     @foreach (var ingredient in Model.CartItemIngredients)
                     {
                         <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" checked />
@@ -32,25 +33,25 @@
                     }
                 </div>
 
-            <p>Additional ingredients</p>
+                <p class="adjust"></p>
 
-            <div class="form-group checkbox checkbox-inline">                             
-                @foreach (var ingredient in _ingredients.All())
-                {
-                    <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId"/>
-                    <p>
-                        @(ingredient.Name + " " + ingredient.Price + " SEK")
-                    </p>
-                }
-            </div>
+                <div class="form-group checkbox checkbox-inline">
+                    @foreach (var ingredient in _ingredients.Adjusted(Model.CartItemId))
+                    {
+                        <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId" />
+                        <p>
+                            @(ingredient.Name + " " + ingredient.Price + " SEK")
+                        </p>
+                    }
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <input id="adjust" type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
+</section>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -27,7 +27,7 @@ namespace PizzeriaMassagotti.Models
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Zip code is required")]
-        [MaxLength(5, ErrorMessage = "The name can only be 100 characters long")]
+        [MaxLength(5, ErrorMessage = "The name can only be 5 characters long")]
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
 
@@ -36,26 +36,29 @@ namespace PizzeriaMassagotti.Models
         public string City { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
+        [MaxLength(50, ErrorMessage = "Too long e-mail address")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-
-        [Required (ErrorMessage = "Credit card number is required")]
-        [DataType(DataType.CreditCard)]
+     
+        [Required(ErrorMessage = "Credit card number is required")]
+        [RegularExpression("^[0-9]{16}$", ErrorMessage = "Invalid, can only contain digits, max 16")]   
         [Display(Name = "Credit Card")]
         public string CardNumber { get; set; }
 
         [Required(ErrorMessage = "CVC number is required")]
+        [RegularExpression("^[0-9]{3}$", ErrorMessage = "Invalid, can only contain 3 digits")]
         [Display(Name = "CVC")]
         public string CVC { get; set; }
 
+          
         //[Required]
         //[DataType(DataType.Date)]
         //[Range(2017,2050)]
         //[DisplayFormat(DataFormatString ="YYYY-MM", ApplyFormatInEditMode = true)]
         //public DateTime ExpireDate { get; set; }
 
-        
+
         [Display(Name = "Month")]
         public string ExpireMonth { get; set; }
         
