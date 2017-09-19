@@ -19,25 +19,7 @@
             <input type="hidden" asp-for="ShoppingCartId" />
             <input type="hidden" asp-for="DishId" />
             <input type="hidden" asp-for="Quantity" />
-
-
-            @*<div class="form-group">
-                    <label asp-for="ShoppingCartId" class="control-label"></label>
-                    <select asp-for="ShoppingCartId" class="form-control" asp-items="ViewBag.ShoppingCartId"></select>
-                    <span asp-validation-for="ShoppingCartId" class="text-danger"></span>
-                </div>*@
-            @*<div class="form-group">
-                    <label asp-for="DishId" class="control-label"></label>
-                    <select asp-for="DishId" class="form-control" asp-items="ViewBag.DishId"></select>
-                    <span asp-validation-for="DishId" class="text-danger"></span>
-                </div>*@
-            @*<div class="form-group">
-                    <label asp-for="Quantity" class="control-label"></label>
-                    <input asp-for="Quantity" class="form-control" />
-                    <span asp-validation-for="Quantity" class="text-danger"></span>               
-                </div>*@
             
-                
             <div class="form-group checkbox checkbox-inline" >
                
                     @foreach (var ingredient in Model.CartItemIngredients)
@@ -57,7 +39,7 @@
                 {
                     <input class="form-group" type="checkbox" name="ingredient-@ingredient.IngredientId"/>
                     <p>
-                        @(ingredient.Name + " " + ingredient.Price + "kr")
+                        @(ingredient.Name + " " + ingredient.Price + " SEK")
                     </p>
                 }
             </div>

@@ -86,3 +86,14 @@
 .order .creditcard {
   padding-top: 20px; }
 
+.order #sign:hover {
+  color: green; }
+
+.order .back-to-cart {
+  padding-left: 35px; }
+  .order .back-to-cart #back-to-cart:hover {
+    color: green; }
+
+.thank-you-container #return:hover {
+  color: green; }
+

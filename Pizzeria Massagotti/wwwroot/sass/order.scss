@@ -6,9 +6,8 @@
     h4 {
         padding-top: 10px;
         border-top: groove 2px darkgoldenrod;
-        text-align:end;
-        color:darkgoldenrod;
-
+        text-align: end;
+        color: darkgoldenrod;
     }
 
     .name-address {
@@ -17,5 +16,21 @@
 
     .creditcard {
         padding-top: 20px;
+    }
+
+    #sign {
+        &:hover {
+            color: green;
+        }
+    }
+
+    .back-to-cart {
+        padding-left: 35px;
+
+        #back-to-cart {
+            &:hover {
+                color: green;
+            }
+        }
     }
 }

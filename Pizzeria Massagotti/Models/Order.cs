@@ -55,10 +55,10 @@ namespace PizzeriaMassagotti.Models
         //[DisplayFormat(DataFormatString ="YYYY-MM", ApplyFormatInEditMode = true)]
         //public DateTime ExpireDate { get; set; }
 
-        [Required]
+        
         [Display(Name = "Month")]
         public string ExpireMonth { get; set; }
-        [Required]
+        
         [Display(Name = "Year")]
         public string ExpireYear { get; set; }
     }
