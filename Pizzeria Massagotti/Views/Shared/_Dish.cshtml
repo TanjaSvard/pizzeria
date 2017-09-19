@@ -9,7 +9,7 @@
 <section class="dish-container">
 
     <div class="col-md-12 container">
-        <h5 class="pull-right">@Model.Price kr</h5>
+        <h5 class="pull-right">@(Model.Price + " SEK")</h5>
         <h4>@Model.Name</h4>
         <h6 class="pull-right">
             <button id =" cartButton" type="submit" class="buy" name="add-@Model.DishId">
@@ -25,64 +25,5 @@
 
             }
         </p>
-    </div>
-
-
-
-    @*<table class="table table-hover col-md-12">
-        <thead>
-            <tr>
-
-                <th class="col-md-2">Name</th>
-                <th class="col-md-6">Ingredients</th>
-                <th class="col-md-2">Price</th>
-                <th class="col-md-2">Order</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-
-                <td class="col-md-2">@Model.Name</td>
-                <td class="col-md-6">
-                    <p>
-                        @foreach (var item in Model.DishIngredients)
-                        {
-
-                            @(item.Ingredient.Name + " ")
-
-                        }
-                    </p>
-                </td>
-                <td class="col-md-2">@Model.Price kr</td>
-                <td class="col-md-2">
-                    <button type="submit" class="buy" name="add-@Model.DishId">
-                        <p class="glyphicon glyphicon-shopping-cart"></p>
-                    </button>
-                </td>
-            </tr>
-        </tbody>*@
-
-
-
-    @*<tr>
-        <td class="col-md-10">
-            <span>@Model.Name, @Model.Price kr</span>
-            <p>
-                @foreach (var item in Model.DishIngredients)
-                {
-
-                    @(item.Ingredient.Name + " ")
-
-                }
-            </p>*@
-    @*<p>@_dishService.DishIngredientsForDishId(Model.DishId)</p>*@
-    @*</td>
-            <td class="col-md-2 shopping-cart">
-                <button type="submit" class="buy" name="add-@Model.DishId">
-                    <p class="glyphicon glyphicon-shopping-cart"></p>
-                </button>
-            </td>
-        </tr>*@
-    @*</table>*@
+    </div>   
 </section>
