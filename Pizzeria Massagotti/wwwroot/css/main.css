@@ -94,6 +94,8 @@
   .order .back-to-cart #back-to-cart:hover {
     color: green; }
 
-.thank-you-container #return:hover {
-  color: green; }
+.thank-you-container {
+  margin-top: 40px; }
+  .thank-you-container #return:hover {
+    color: green; }
 
