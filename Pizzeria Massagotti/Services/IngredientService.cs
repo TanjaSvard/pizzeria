@@ -22,7 +22,6 @@ namespace PizzeriaMassagotti.Services
 
             return getIngredients.OrderBy(i => i.Name).ToList();
 
-            //return _context.Ingredients.OrderByDescending(i => i.Name)).ToList();
         }
 
         public List<Ingredient> Adjusted(int cartItemId)

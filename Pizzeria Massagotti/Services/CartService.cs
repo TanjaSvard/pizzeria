@@ -68,18 +68,7 @@ namespace PizzeriaMassagotti.Services
             var order = _context.Orders.Include(c => c.CartItems).ThenInclude(ci => ci.CartItemIngredients)
                 .ThenInclude(c => c.Ingredient)
                 .FirstOrDefault(c => c.ShoppingCartId == cartId);
-            //var listOfDishes = _context.Dishes.Include(m => m.DishIngredients).ThenInclude(c => c.Ingredient).ToList();
-            //order.ShoppingCartId = v.ShoppingCartId;
-
-
-            //foreach (var item in v.CartItems)
-            //{
-            //    var d = listOfDishes.FirstOrDefault(x => x.DishId == item.DishId);
-            //    item.Dish = d;
-            //}
-            //order.CartItems = v.CartItems;
-
-           
+                  
             return order;
         }
 
@@ -98,16 +87,9 @@ namespace PizzeriaMassagotti.Services
                 _session.SetInt32("cartId", shoppingCart.ShoppingCartId);
             }
 
-
-            //int ? shoppingCartId = _session.GetInt32("cartId");
+        
             int shoppingCartId = _session.GetInt32("cartId").Value;
-            //if (_context.CartItems.Any(c => c.DishId == dishId && c.ShoppingCartId == shoppingCartId))
-            //{
-            //    _context.CartItems.FirstOrDefault(c => c.DishId == dishId && c.ShoppingCartId == shoppingCartId).Quantity++;
-            //    _context.SaveChanges();
-            //}
-            //else
-            //{
+           
             CartItem cartItem = new CartItem();
             cartItem.ShoppingCartId = shoppingCartId;
             cartItem.DishId = dishId;

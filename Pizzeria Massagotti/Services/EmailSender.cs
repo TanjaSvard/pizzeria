@@ -13,10 +13,7 @@ namespace PizzeriaMassagotti.Services
         public Task SendEmailAsync(string email, string subject, string message)
         {
             Debug.WriteLine($"To:{ email} Subject:{subject} Message: {message}");
-
-            // i PaymentController/OrderController, något i stil med
-            //await _emailSender.SendEmailAsync("tanja_jazz@hotmail.se", "Order", "Thank you for your order")
-
+         
             return Task.CompletedTask;
         }
     }
