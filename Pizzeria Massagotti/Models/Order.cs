@@ -13,8 +13,7 @@ namespace PizzeriaMassagotti.Models
         public int ShoppingCartId { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
         public bool Anonymous { get; set; }
-        public string ApplicationUserId { get; set; }
-        public DateTime OrderDateTime { get; set; }
+        public string ApplicationUserId { get; set; }       
 
         [Required(ErrorMessage = "Name is required")]
         [MaxLength(100, ErrorMessage = "The name can only be 100 characters long")]
@@ -52,14 +51,7 @@ namespace PizzeriaMassagotti.Models
         [Display(Name = "CVC")]
         public string CVC { get; set; }
 
-          
-        //[Required]
-        //[DataType(DataType.Date)]
-        //[Range(2017,2050)]
-        //[DisplayFormat(DataFormatString ="YYYY-MM", ApplyFormatInEditMode = true)]
-        //public DateTime ExpireDate { get; set; }
-
-
+           
         [Display(Name = "Month")]
         public string ExpireMonth { get; set; }
         

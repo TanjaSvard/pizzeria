@@ -77,7 +77,7 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,ShoppingCartId,Anonymous,ApplicationUserId,OrderDateTime")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderId,ShoppingCartId,Anonymous,ApplicationUserId")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -92,10 +92,7 @@ namespace PizzeriaMassagotti.Controllers
         // GET: Orders/Edit/5
         public ActionResult Edit(int id)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
+            
             var order = _cartService.SaveCartOnOrder(id);
             //var order = await _context.Orders.Include(m =>m.ShoppingCart).SingleOrDefaultAsync(m => m.ShoppingCartId == id);
             if (order == null)
@@ -126,12 +123,15 @@ namespace PizzeriaMassagotti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShoppingCartId,ShoppingCart,CartItems,Anonymous,ApplicationUserId,OrderDateTime,CardNumber,CVC,ExpireMonth,ExpireYear,Name,Address,ZipCode,City,Email")] Order order, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ShoppingCartId,ShoppingCart,CartItems,Anonymous,ApplicationUserId,CardNumber,CVC,ExpireMonth,ExpireYear,Name,Address,ZipCode,City,Email")] Order order, IFormCollection collection)
         {
-            //if (id != order.OrderId)
-            //{
-            //    return NotFound();
-            //}
+           
+            if (!_paymentService.DateValidation(order.ExpireMonth, order.ExpireYear))
+            {
+                ModelState.AddModelError("AB","BA");
+                ViewBag.Validation = "Invalid expiration date";
+            }
+
 
             if (ModelState.IsValid)
             {
@@ -163,6 +163,8 @@ namespace PizzeriaMassagotti.Controllers
                 }
 
             }
+            ViewBag.ExpireMonth = _paymentService.GetAllValidMonths();
+            ViewBag.ExpireYear = _paymentService.GetAllValidYears();
             ViewData["ShoppingCartId"] = new SelectList(_context.ShoppingCart, "ShoppingCartId", "ShoppingCartId", order.ShoppingCartId);
             return View(order);
         }

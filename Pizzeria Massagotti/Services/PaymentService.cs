@@ -60,6 +60,20 @@ namespace PizzeriaMassagotti.Services
             }
             return selectListYears;
         }
+
+        public bool DateValidation(string month, string year)
+        {
+           DateTime expirationDate = new DateTime(int.Parse(year), int.Parse(month), 1);
+           int result = DateTime.Compare(DateTime.Today, expirationDate);
+            if (result > 0)
+            {
+                return false;
+            }
+            else {
+                return true;
+            }
+            
+        }
     }
 
 }

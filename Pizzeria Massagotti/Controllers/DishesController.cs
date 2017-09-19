@@ -149,18 +149,13 @@ namespace PizzeriaMassagotti.Controllers
 
             _dishService.RemoveIngredients(id);
 
-            //List<Ingredient> testList = new List<Ingredient>();
+           
             foreach (var item in collection.Keys.Where(m => m.StartsWith("ingredient-")))
             {
                 var ingStr = item.Remove(0, 11);
                 var ingId = Int32.Parse(ingStr);
                 var listIngredient = _ingredientService.All().FirstOrDefault(d => d.IngredientId == ingId);
-                //testList.Add(listIngredient);
-
-
-                //DishIngredient di = new DishIngredient() { Dish = dish, Ingredient = listIngredient };
-                //_context.DishIngredients.Add(di);
-
+                       
                 _context.DishIngredients.Add(new DishIngredient() { Dish = dish, Ingredient = listIngredient });
 
             }
